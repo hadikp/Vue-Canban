@@ -1,4 +1,12 @@
 :root {
+  --blue: #4cc1f6;
+  --red: #e93a59;
+  --orange: #f8bd59;
+  --green: #27a743;
+  --aquamarine: #77d9dd;
+  --bluegrey: #566c83;
+  --grey: #939393;
+  
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -15,22 +23,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+@font-face {
+  font-family: GreatVibes;
+  src: url(./fonts/GreatVibes-Regular.ttf);
 }
-a:hover {
-  color: #535bf2;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+@font-face {
+  font-family: Roboto;
+  src: url(/fonts/RobotoSlab-VariableFont_wght.ttf);
 }
 
 body {
@@ -63,10 +62,6 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
 }
 
 #app {
