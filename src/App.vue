@@ -1,30 +1,18 @@
 <script setup>
-
+import Welcome from "./components/Welcome.vue";
 </script>
 
 <template>
-  <header>
-    <div class="header_title">BlueSight-Canban</div>
-    <img class="logo" src="./assets/canban_logo2.png" alt="canban-logo">
-  </header>
-  <main></main>
+  <header></header>
+  <main>
+    <welcome />
+  </main>
   <footer></footer>
 </template>
 
 <style scoped>
 
 
-
-.header_title{
-  font-family: Roboto;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
