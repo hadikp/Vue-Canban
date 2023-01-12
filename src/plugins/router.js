@@ -5,6 +5,7 @@ const routes = [
   {path: '', name: 'board', component: () => import('../views/Board.vue')},
   {path: '', name: 'squad', component: () => import('../views/Squad.vue')},
   {path: '', name: 'user', component: () => import('../views/User.vue')},
+  {path: '', name: 'project', component: () => import('../views/Project.vue')},
 ]
 
 const router = createRouter({
