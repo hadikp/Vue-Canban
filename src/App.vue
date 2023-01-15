@@ -12,11 +12,50 @@ import { RouterView, RouterLink } from 'vue-router'
   <main class="main-container">
     <nav class="navigation">
       <ul class="nav-ul">
-        <li><router-link class="nav-ul-li" :to="{name: 'welcome'}">Welcome</router-link></li>
-        <li><router-link class="nav-ul-li" :to="{name: 'board'}">Board</router-link></li>
-        <li><router-link class="nav-ul-li" :to="{name: 'squad'}">Squad</router-link></li>
-        <li><router-link class="nav-ul-li" :to="{name: 'user'}">User</router-link></li>
-        <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="home-lg" />
+          <li><router-link class="nav-ul-li" :to="{name: 'welcome'}">Welcome</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="th" />
+          <li><router-link class="nav-ul-li" :to="{name: 'board'}">Board</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="user-group" />
+          <li><router-link class="nav-ul-li" :to="{name: 'squad'}">Squad</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="user-astronaut" />
+          <li><router-link class="nav-ul-li" :to="{name: 'user'}">User</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
+          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="font-awesome-flag" />
+          <li><router-link class="nav-ul-li" :to="{name: 'icons'}">Icons</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
+          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
+          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
+          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
+          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        </div>
+        <div class="nav-ul-li-div">
+          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
+          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
+        </div>
       </ul>
     </nav>
     <router-view />
@@ -49,12 +88,12 @@ header {
 }
 
 .main-container {
-    /* display: flex; */
     min-height: 100vh;
     min-height: -moz-available;
     min-height: -webkit-fill-available;
-    /* position: relative; */
-    /* margin: auto; */
+    background-image: url(./assets/feher_hatter.png);
+    background-size: cover;
+    display: flex;
   }
 
 .footer-div{
@@ -78,20 +117,29 @@ header {
     justify-content: flex-start; 
     align-items: center;
   }
-  .navigation ul li {
-    list-style-type: none;
-  }
+
   .nav-ul {
+    background-color: var(--bluegrey);
+    opacity: 65%;
     padding: 1rem;
-    
   }
   .nav-ul-li {
     /* display: flex; */
-    
     color: #fff;
     text-decoration: none;
+    list-style-type: none;
     /* text-align: center; */
     /* padding: 15px; */
+  }
+
+  .nav-ul-li-div {
+    display: flex;
+    color: #fff;
+    padding: 1rem;
+  }
+
+  .nav-icon {
+    margin-right: 0.6rem;
   }
 
 

@@ -5,42 +5,72 @@
 <template>
   <header></header>
   <main>
-    <font-awesome-icon icon="user-astronaut" />
-    <font-awesome-icon icon="igloo" />
-    <font-awesome-icon icon="plus" />
-    <font-awesome-icon icon="cog" />
-    <font-awesome-icon icon="download" />
-    <font-awesome-icon icon="upload" />
-    <font-awesome-icon icon="pencil" />
-    <font-awesome-icon icon="print" />
-    <font-awesome-icon icon="thumbtack" />
-    <font-awesome-icon icon="image" />
-    <font-awesome-icon icon="square-plus" />
-    <font-awesome-icon icon="user" />
-    <font-awesome-icon icon="trash-alt" />
-    <font-awesome-icon icon="times" />
-    <font-awesome-icon icon="tag" />
-    <font-awesome-icon icon="sort-amount-up" />
-    <font-awesome-icon icon="sort-amount-down" />
-    <font-awesome-icon icon="sitemap" />
-    <font-awesome-icon icon="battery" />
-    <font-awesome-icon icon="home-lg" />
-    <font-awesome-icon icon="tachometer-alt" />
-    <font-awesome-icon icon="save" />
-    <font-awesome-icon icon="th" />
-    <font-awesome-icon class="smile" icon="smile" />
-    <font-awesome-icon icon="user-plus" />
-    <font-awesome-icon icon="question-circle" />
-    <font-awesome-icon icon="fa-regular fa-calendar-check" />
-    <h1>Welcome</h1>
+    <h2>Welcome</h2>
+    <div class="board">
+      <h3>My Boards</h3>
+      <div class="cards-result">
+        <div class="card-blue">
+          <h3>All my cards</h3>
+        </div>
+        <div class="card-orange">
+          <h3>My cards at risk</h3>
+        </div>
+        <div class="card-red">
+          <h3>My overdue cards</h3>
+        </div>
+      </div>
+    </div>
+    
   </main>
   <footer></footer>
   
 </template>
 
 <style scoped>
-  .smile {
-    color: yellow;
+  .board{
+    background-color: #fff;
+    box-shadow: 5px 5px var(--grey);
+    /* border: 1px solid; */
+    margin-left: 7rem;
+    margin-top: 2rem ;
+    min-width: 40vw;
+    min-height: 50vh;
+    position: relative;
   }
+
+  .cards-result {
+    color: #fff;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-bottom: -9rem;
+    position: absolute;
+    text-align: center; 
+  }
+
+  .card-blue{
+    background-color: var(--blue);
+    box-shadow: 5px 5px var(--grey);
+    height: 7rem;
+    width: 15vw;
+    margin-right: 2rem;
+  }
+  
+  .card-orange{
+    background-color: var(--orange);
+    box-shadow: 5px 5px var(--grey);
+    height: 7rem;
+    width: 15vw;
+    margin-right: 2rem;
+  }
+  .card-red{
+    background-color: var(--red);
+    box-shadow: 5px 5px var(--grey);
+    height: 7rem;
+    width: 15vw;
+  }
+  
+  
 
 </style>
