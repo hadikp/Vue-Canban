@@ -37,6 +37,8 @@
     <font-awesome-icon icon="bell" />
     <font-awesome-icon icon="line-chart" />
     <font-awesome-icon class="awesome" icon="font-awesome-flag" />
+    <font-awesome-icon icon="thumbs-up" />
+
 </template>
 
 <style scoped>
