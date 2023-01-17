@@ -38,6 +38,11 @@
     <font-awesome-icon icon="line-chart" />
     <font-awesome-icon class="awesome" icon="font-awesome-flag" />
     <font-awesome-icon icon="thumbs-up" />
+    <font-awesome-icon icon="filter" />
+    <font-awesome-icon icon="rotate" />
+    <font-awesome-icon icon="caret-down" />
+    <font-awesome-icon icon="edit" />
+    <font-awesome-icon icon="magic-wand-sparkles" />
 
 </template>
 

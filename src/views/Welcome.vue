@@ -164,8 +164,4 @@
     background-color: var(--red);
   }
 
-  
-  
-  
-
 </style>
