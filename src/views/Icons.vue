@@ -43,6 +43,7 @@
     <font-awesome-icon icon="caret-down" />
     <font-awesome-icon icon="edit" />
     <font-awesome-icon icon="magic-wand-sparkles" />
+    <font-awesome-icon icon="chevron-right" />
 
 </template>
 

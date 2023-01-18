@@ -14,24 +14,24 @@
     <div class="search">
 
       <div class="search-icons-left">
-        <div class="search-icon">
+        <button class="search-icon">
         <font-awesome-icon class="search-icon-icon" icon="filter" />
         <h4>Filters</h4>
-        </div>
-        <div class="search-icon">
+        </button>
+        <button class="search-icon">
           <font-awesome-icon class="search-icon-icon" icon="rotate" />
           <h4>On</h4>
-        </div>
-        <div class="search-icon">
+        </button>
+        <button class="search-icon">
           <font-awesome-icon class="search-icon-icon" icon="download" />
           <font-awesome-icon icon="caret-down" />
-        </div>
-        <div class="search-icon">
+        </button>
+        <button class="search-icon">
           <font-awesome-icon icon="upload" />
-        </div>
-        <div class="search-icon">
+        </button>
+        <button class="search-icon">
           <font-awesome-icon class="handshake" icon="handshake" />
-        </div>
+        </button>
       </div>
 
       <div class="search-input">
@@ -39,24 +39,28 @@
       </div>
 
       <div class="search-icons-right">
-        <div class="search-icon">
+        <button class="search-icon-thumb">
           <font-awesome-icon icon="thumbtack" />
-        </div>
-        <div class="search-icon">
+        </button>
+        <button class="search-icon">
           <font-awesome-icon class="search-icon-icon" icon="edit" />
           <h4>Edit</h4>
-        </div>
-        <div class="search-icon">
-          <font-awesome-icon class="search-icon-icon" icon="magic-wand-sparkles" />
-        </div>
-        <button class="search-icon">
+        </button>
+        <button class="search-icon-magic">
+          <font-awesome-icon icon="magic-wand-sparkles" />
+        </button>
+        <button class="search-icon-plus">
           <font-awesome-icon class="search-icon-icon" icon="plus" />
           <h4>New card</h4>
         </button>
       </div>
-
     </div>
-    
+
+    <div class="swimlane">
+      <div>
+        <font-awesome-icon icon="chevron-right" />
+      </div>
+    </div>
   </main>
   
 </template>
@@ -78,7 +82,7 @@
     display: flex;
     justify-content: space-between;
   }
-  .search-icon{
+  .search-icon, .search-icon-thumb, .search-icon-magic, .search-icon-plus{
     border: 1px solid;
     display: flex;
     align-items: center;
@@ -86,7 +90,18 @@
     margin-left: 0.5rem;
     padding: 0.3rem;
   }
-  .search-icon-icon {
+  .search-icon-thumb{
+    padding: 0.5rem;
+  }
+  .search-icon-magic, .search-icon-plus{
+    background-color: var(--green);
+    color: #fff;
+  }
+  .search-icon-magic:hover, .search-icon-plus:hover{
+    background-color: #fff;
+    color: var(--green);
+  }
+  .search-icon-icon{
     margin-right: 0.5rem;
   }
 .search-input{
@@ -100,7 +115,6 @@
     padding: 0.5rem;
     width: 20vw;
   }
-
 .search-icons-left{
   display: flex;
 }
@@ -108,5 +122,8 @@
   display: flex;
   justify-content: flex-end;
   width: 30vw;
+}
+.swimlane{
+  margin-left: 2rem;
 }
 </style>
