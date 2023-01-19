@@ -68,9 +68,10 @@
       </div>
     </div>
 
-    <div class="swimlane">
-      <div>
-        <font-awesome-icon icon="chevron-right" />
+    <div class="swimlane" v-for="swimlane in swimlaneData.swimlane" :key="swimlane.id">
+      <div class="swimlane-row">
+        <font-awesome-icon class="swimlane-icon" icon="chevron-right" />
+        <p>{{ swimlane.name }}</p>
       </div>
     </div>
   </main>
@@ -137,5 +138,13 @@
 }
 .swimlane{
   margin-left: 2rem;
+}
+.swimlane-row{
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+}
+.swimlane-icon{
+  margin-right: 0.5rem;
 }
 </style>
