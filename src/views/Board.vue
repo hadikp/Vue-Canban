@@ -1,5 +1,16 @@
 <script setup>
+  import axios from 'axios'
+  import { ref } from 'vue'
 
+  const error = ref('')
+  let swim = ref('')
+
+  axios.get('api/swimlane')
+    .then(resp => {
+      swim = resp.data;
+      console.log(swim)
+    })
+    .catch(err => (error.value = 'Valami hiba történt, próbáld újra!'))
 </script>
 
 <template>
