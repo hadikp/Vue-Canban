@@ -1,14 +1,15 @@
 <script setup>
   import axios from 'axios'
   import { ref } from 'vue'
+  import { useSwimlaneStore } from '../../stores/swimlane'
 
   const error = ref('')
-  let swim = ref('')
+  let swimlaneData = useSwimlaneStore()
 
   axios.get('api/swimlane')
     .then(resp => {
-      swim = resp.data;
-      console.log(swim)
+      swimlaneData.swimlane = resp.data;
+      console.log(swimlaneData)
     })
     .catch(err => (error.value = 'Valami hiba történt, próbáld újra!'))
 </script>

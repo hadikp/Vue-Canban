@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import { createPinia } from 'pinia'
 
 import router from './plugins/router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -19,4 +20,5 @@ library.add(faCog, faIgloo, faPlus, faUserAstronaut, faDownload, faUpload, faPen
 createApp(App)
   .component('font-awesome-icon', FontAwesomeIcon)
   .use(router)
+  .use(createPinia())
   .mount('#app')
