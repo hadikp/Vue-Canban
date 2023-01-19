@@ -1,4 +1,16 @@
 <script setup>
+  import axios from 'axios'
+  import { useSquadStore } from '../../stores/squad'
+  
+
+  let squadData = useSquadStore()
+
+  axios.get('api/squad')
+    .then(resp => {
+      squadData.squad = resp.data;
+      console.log(squadData)
+    })
+    .catch(err => (error.value = 'Something wrong, try again!'))
 
 </script>
 
@@ -17,15 +29,15 @@
         </div>
       </header>
       
-      <div class="board-squads">
-        <div class="board-squad-div-active">
-          <font-awesome-icon class="board-icon-active" icon="thumbtack" />
-          <h3>First squad</h3>
+      <div class="board-squads" v-for="squad in squadData.squad" :key="squad.id">
+        <div :class="squad.id == 1 ? 'board-squad-div-active' : 'board-squad-div'">
+          <font-awesome-icon :class="squad.id == 1 ? 'board-icon-active' : 'board-icon'" icon="thumbtack" />
+          <h3>{{ squad.name }}</h3>
         </div>
-        <div class="board-squad-div">
+        <!-- <div class="board-squad-div">
           <font-awesome-icon class="board-icon" icon="thumbtack" />
-          <h3>My test squad</h3>
-        </div>
+          <h3>{{ squad.name }}</h3>
+        </div> -->
       </div>
 
       <div class="cards-result">
@@ -60,16 +72,13 @@
     min-height: 50vh;
     position: relative;
   }
-
   .board-header{
     display: flex;
   }
-
   .board-header-h3{
     margin-left: 2rem;
     margin-top: 0.5rem;
   }
-
   .board-header-icons{
     margin-top: 0.5rem;
     display: flex;
@@ -77,11 +86,9 @@
     align-items: center;
     width: 30vw;
   }
-
   .board-header-icon{
     margin-right: 0.6rem;
   }
-
   .board-header-icon-b{
     background-color: var(--green);
     margin-right: 0.6rem;
@@ -89,31 +96,33 @@
     font-size: 1rem;
     padding: 0.5rem;
   }
-
   .board-squads{
     margin: 2rem;
   }
-
   .board-squad-div-active{
     display: flex;
     color: #000;
     align-items: center;
   }
-
   .board-squad-div{
     display: flex;
     margin-top: 1rem;
     align-items: center;
   }
-
-  .board-icon-active{
-    background-color: var(--green);
+  .board-icon, .board-icon-active{
     margin-right: 0.6rem;
     color: #fff;
     font-size: 1.1rem;
     padding: 0.7rem;
   }
-
+  .board-icon{
+    border: 2px solid;
+    color: #000;
+    font-size: 1rem;
+  }
+  .board-icon-active{
+    background-color: var(--green);
+  }
   .board-header-icon-b{
     background-color: var(--green);
     margin-right: 0.6rem;
@@ -121,15 +130,6 @@
     font-size: 1rem;
     padding: 0.5rem;
   }
-
-  .board-icon{
-    border: 2px solid;
-    margin-right: 0.6rem;
-    color: #000;
-    font-size: 1rem;
-    padding: 0.7rem;
-  }
-
   .cards-result {
     color: #fff;
     display: flex;
@@ -140,23 +140,19 @@
     position: absolute;
     text-align: center; 
   }
-
   .card-blue, .card-orange, .card-red{
     background-color: var(--blue);
     box-shadow: 5px 5px var(--grey);
     height: 7rem;
     width: 15vw;
   }
-
   .card-blue{
     margin-right: 2rem;
   }
-
   .card-blue h3, .card-orange h3, .card-red h3{
     margin-top: 1rem;
   }
-  
-  .card-orange{
+   .card-orange{
     background-color: var(--orange);
     margin-right: 2rem;
   }

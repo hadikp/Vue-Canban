@@ -11,7 +11,7 @@
       swimlaneData.swimlane = resp.data;
       console.log(swimlaneData)
     })
-    .catch(err => (error.value = 'Valami hiba történt, próbáld újra!'))
+    .catch(err => (error.value = 'Something wrong, try again!'))
 </script>
 
 <template>
