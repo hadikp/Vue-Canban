@@ -1,6 +1,7 @@
 <script setup>
   import axios from 'axios'
   import { useSquadStore } from '../../stores/squad'
+import { RouterLink } from 'vue-router';
   
 
   let squadData = useSquadStore()
@@ -32,7 +33,8 @@
       <div class="board-squads" v-for="squad in squadData.squad" :key="squad.id">
         <div :class="squad.id == 1 ? 'board-squad-div-active' : 'board-squad-div'">
           <font-awesome-icon :class="squad.id == 1 ? 'board-icon-active' : 'board-icon'" icon="thumbtack" />
-          <h3>{{ squad.name }}</h3>
+          <router-link v-if="squad" class="board-squads-router" :to="{name: 'board', params: {id: squad.id}}"><h3>{{ squad.name }}</h3></router-link>
+          
         </div>
         <!-- <div class="board-squad-div">
           <font-awesome-icon class="board-icon" icon="thumbtack" />
@@ -123,6 +125,10 @@
   .board-icon-active{
     background-color: var(--green);
   }
+  .board-squads-router{
+    text-decoration: none;
+    color: #000;
+  }
   .board-header-icon-b{
     background-color: var(--green);
     margin-right: 0.6rem;
@@ -158,6 +164,9 @@
   }
   .card-red{
     background-color: var(--red);
+  }
+  .router-link-active{
+    color: red;
   }
 
 </style>
