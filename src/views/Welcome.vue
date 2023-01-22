@@ -1,10 +1,12 @@
 <script setup>
-  import axios from 'axios'
+  import axios from 'redaxios'
   import { useSquadStore } from '../../stores/squad'
-import { RouterLink } from 'vue-router';
+  import { useSwimlaneStore } from '../../stores/swimlane'
+  import { RouterLink } from 'vue-router';
   
 
   let squadData = useSquadStore()
+  let swimlaneData = useSwimlaneStore()
 
   axios.get('api/squad')
     .then(resp => {
@@ -12,6 +14,13 @@ import { RouterLink } from 'vue-router';
       console.log(squadData)
     })
     .catch(err => (error.value = 'Something wrong, try again!'))
+
+  axios.get('api/swimlane')
+    .then(resp => {
+      swimlaneData.swimlane = resp.data;
+      console.log(swimlaneData)
+    })
+    .catch(err => (error.value = 'Something wrong with swimlane data, try again!'))
 
 </script>
 
@@ -33,8 +42,8 @@ import { RouterLink } from 'vue-router';
       <div class="board-squads" v-for="squad in squadData.squad" :key="squad.id">
         <div :class="squad.id == 1 ? 'board-squad-div-active' : 'board-squad-div'">
           <font-awesome-icon :class="squad.id == 1 ? 'board-icon-active' : 'board-icon'" icon="thumbtack" />
-          <router-link v-if="squad" class="board-squads-router" :to="{name: 'board', params: {id: squad.id}}"><h3>{{ squad.name }}</h3></router-link>
-          
+          <router-link class="board-squads-router" :to="{name: 'board', params: {id: squad.boardId}}"><h3>{{ squad.name }}</h3></router-link>
+          <!-- :to="`/board/${squad.boardId}`"> -->
         </div>
         <!-- <div class="board-squad-div">
           <font-awesome-icon class="board-icon" icon="thumbtack" />
@@ -125,6 +134,15 @@ import { RouterLink } from 'vue-router';
   .board-icon-active{
     background-color: var(--green);
   }
+  .board-icon-active:hover{
+    border: 2px solid #000;
+    background-color: #fff;
+    color: var(--green);
+  }
+  .board-icon:hover{
+    background-color: #000;
+    color: #fff;
+  }
   .board-squads-router{
     text-decoration: none;
     color: #000;
@@ -165,8 +183,6 @@ import { RouterLink } from 'vue-router';
   .card-red{
     background-color: var(--red);
   }
-  .router-link-active{
-    color: red;
-  }
+
 
 </style>
