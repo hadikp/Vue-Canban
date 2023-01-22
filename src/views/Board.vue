@@ -1,25 +1,15 @@
 <script setup>
-  import axios from 'redaxios'
   import { ref } from 'vue'
   import { useSwimlaneStore } from '../../stores/swimlane'
   import { useBoardStore } from '../../stores/board'
   import { useRoute } from 'vue-router'
 
   const error = ref('')
-  let swimlaneData = useSwimlaneStore()
-  let boardData = useBoardStore()
-  const route = useRoute() //welcome-ból jövő id-hez kell
-  const id = route.params.id;
+  const swimlaneData = useSwimlaneStore()
+  const boardData = useBoardStore()
+  const route = useRoute() 
+  const id = route.params.id; //from welcome boardId
 
-
-  
-  
-    /* axios.get('api/board')
-    .then(resp => {
-      boardData.board = resp.data;
-      console.log(boardData)
-    })
-    .catch(err => (error.value = 'Something wrong by board data, try again!'))*/
 
 </script>
 

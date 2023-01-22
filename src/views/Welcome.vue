@@ -1,27 +1,36 @@
 <script setup>
   import axios from 'redaxios'
+  import { ref } from 'vue'
   import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
+  import { useBoardStore } from '../../stores/board'
   import { RouterLink } from 'vue-router';
+
+  const error = ref('')
+  const squadData = useSquadStore()
+  const swimlaneData = useSwimlaneStore()
+  const boardData = useBoardStore()
+
+  //multiple axios and put pinia store
+  let urls = [
+    'api/squad',
+    'api/swimlane',
+    'api/board'
+  ]
+  const requests = urls.map(url => axios.get(url))
+
+  axios.all(requests).then(axios.spread((squadDatas, swimlaneDatas, boardDatas) => {
+    const squadArr = squadDatas.data
+    const swimlaneArr = swimlaneDatas.data
+    const boardArr = boardDatas.data
+    
+    squadData.squad = squadArr
+    swimlaneData.swimlane = swimlaneArr
+    boardData.board = boardArr
+  }))
+   .catch(err => (error.value = 'Something wrong with datas, try again!'))
+
   
-
-  let squadData = useSquadStore()
-  let swimlaneData = useSwimlaneStore()
-
-  axios.get('api/squad')
-    .then(resp => {
-      squadData.squad = resp.data;
-      console.log(squadData)
-    })
-    .catch(err => (error.value = 'Something wrong, try again!'))
-
-  axios.get('api/swimlane')
-    .then(resp => {
-      swimlaneData.swimlane = resp.data;
-      console.log(swimlaneData)
-    })
-    .catch(err => (error.value = 'Something wrong with swimlane data, try again!'))
-
 </script>
 
 <template>
