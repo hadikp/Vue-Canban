@@ -1,10 +1,13 @@
 <script setup>
   import { ref } from 'vue'
+  import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
   import { useBoardStore } from '../../stores/board'
   import { useRoute } from 'vue-router'
+  import Drag from '../components/Drag.vue'
 
   const error = ref('')
+  const squadData = useSquadStore()
   const swimlaneData = useSwimlaneStore()
   const boardData = useBoardStore()
   const route = useRoute() 
@@ -16,9 +19,9 @@
 <template>
   <main>
     <div class="board-title">
-      <h2>First squad | Board</h2>
+      <h2>{{ squadData.squad[id-1].name }}  | Board</h2>
       <div class="board-path">
-        <h4>Welcome / Squads / First squad / Board</h4>
+        <h4>Welcome / Squads / {{ squadData.squad[id-1].name }} / Board</h4>
       </div>
     </div>
 
@@ -73,6 +76,11 @@
         <p>{{ swimlane.name }}</p>
       </div>
     </div>
+
+    <div class="drag-and-drop">
+      <Drag />
+    </div>
+    
   </main>
   
 </template>
@@ -145,5 +153,8 @@
 }
 .swimlane-icon{
   margin-right: 0.5rem;
+}
+.drag-and-drop{
+  margin-left: 2rem;
 }
 </style>

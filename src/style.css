@@ -1,10 +1,12 @@
 :root {
+  --aquamarine: #77d9dd;
   --blue: #4cc1f6;
   --pblue: #576ca8;
+  --lightblue: #3c8dbc;
   --red: #e93a59;
   --orange: #f8bd59;
   --green: #27a743;
-  --aquamarine: #77d9dd;
+  
   --bluegrey: #19599e;
   --grey: #939393;
   --offwhite: #818286;
