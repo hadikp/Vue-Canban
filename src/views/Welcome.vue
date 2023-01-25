@@ -4,29 +4,34 @@
   import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
   import { useBoardStore } from '../../stores/board'
+  import { useCardStore } from '../../stores/card'
   import { RouterLink } from 'vue-router';
 
   const error = ref('')
   const squadData = useSquadStore()
   const swimlaneData = useSwimlaneStore()
   const boardData = useBoardStore()
+  const cardData = useCardStore()
 
   //multiple axios and put pinia store
   let urls = [
     'api/squad',
     'api/swimlane',
-    'api/board'
+    'api/board',
+    'api/card'
   ]
   const requests = urls.map(url => axios.get(url))
 
-  axios.all(requests).then(axios.spread((squadDatas, swimlaneDatas, boardDatas) => {
+  axios.all(requests).then(axios.spread((squadDatas, swimlaneDatas, boardDatas, cardDatas) => {
     const squadArr = squadDatas.data
     const swimlaneArr = swimlaneDatas.data
     const boardArr = boardDatas.data
+    const cardArr = cardDatas.data
     
     squadData.squad = squadArr
     swimlaneData.swimlane = swimlaneArr
     boardData.board = boardArr
+    cardData.card = cardArr
   }))
    .catch(err => (error.value = 'Something wrong with datas, try again!'))
 

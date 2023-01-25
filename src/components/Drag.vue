@@ -1,20 +1,20 @@
 <script>
   import Draggable from 'vuedraggable'
-import CardVue from './Card.vue';
-import Card2Vue from './Card2.vue';
+
 
   export default {
   components: {
     Draggable
+    
   },
   data() {
       return {
         enabled: true,
         list: [
-          { component: CardVue, id: 1 },
-          { component: Card2Vue, id: 2 },
+          { name: 'Jancsi', id: 1 },
+          { name: 'Kali', id: 2 },
           { name: 'Philipp', id: 3 },
-          { name: 'Gerard', id: 4 },
+          { name: 'Pali', id: 3 },
         ],
         dragging: false,
       }
@@ -33,12 +33,13 @@ import Card2Vue from './Card2.vue';
           class="dragArea list-group" :list="list" item-key="name">
           <template #item="{ element }">
             <div class="list-group-item">
-              {{ element.component }}
-              
+              <div class="list-group-card">
+                {{ element.name }}
+                <p>{{ element.id }}</p>
+              </div>
             </div>
           </template>
       </draggable>
-      
       </main> 
     </div>
 
@@ -77,20 +78,36 @@ import Card2Vue from './Card2.vue';
     display: flex;
   }
   .column{
-    color: #fff;
     margin-right: 2rem;
     width: 18vw;
-    
   }
   .column-header{
     background-color: var(--lightblue);
+    color: #fff;
     border-radius: 10px 10px 0 0;
     height: 5vh;
     padding: 0.5rem;
   }
   .column-main{
-    background-color: var(--grey);
-    height: 35vh;
-    opacity: 40%;
+    background-color: rgba(147, 147, 147, 0.5);
+    /* opacity: 40%; */
+    position: absolute;
+    padding-bottom: 1rem;
   }
+  .list-group-item{
+    margin-top: 0.5rem;
+    position: relative;
+    width: 18vw;
+    z-index: 3;
+    
+  }
+  .list-group-card{
+    background-color: #fff;
+    color: #000;
+    margin-left: 1rem;
+    width: 13vw;
+  }
+  
+  
+  
 </style>
