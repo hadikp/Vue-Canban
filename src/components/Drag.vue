@@ -14,7 +14,14 @@
           { name: 'Jancsi', id: 1 },
           { name: 'Kali', id: 2 },
           { name: 'Philipp', id: 3 },
-          { name: 'Pali', id: 3 },
+          { name: 'Pali', id: 4 },
+        ],
+        list2: [
+          { name: 'Geri', id: 5}
+        ],
+        list3: [
+          { name: 'Harold', id: 6},
+          { name: 'Vivekananda', id: 7}
         ],
         dragging: false,
       }
@@ -29,8 +36,7 @@
         <h4>Backlog</h4>
       </header>
       <main class="column-main"> 
-        <draggable
-          class="dragArea list-group" :list="list" item-key="name">
+        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" item-key="name">
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
@@ -48,7 +54,16 @@
         <h4>Ready to work</h4>
       </header>
       <main class="column-main">
-      
+        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="name">
+          <template #item="{ element }">
+            <div class="list-group-item">
+              <div class="list-group-card">
+                {{ element.name }}
+                <p>{{ element.id }}</p>
+              </div>
+            </div>
+          </template>
+      </draggable>
       </main>
     </div>
 
@@ -57,7 +72,16 @@
         <h4>Active</h4>
       </header>
       <main class="column-main">
-        
+        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="name">
+          <template #item="{ element }">
+            <div class="list-group-item">
+              <div class="list-group-card">
+                {{ element.name }}
+                <p>{{ element.id }}</p>
+              </div>
+            </div>
+          </template>
+      </draggable>
       </main>
     </div>
 
@@ -106,6 +130,11 @@
     color: #000;
     margin-left: 1rem;
     width: 13vw;
+  }
+  .ghost-card{
+    opacity: 0.5;
+    background: #F7FAFC;
+    border: 1px solid #4299e1;
   }
   
   
