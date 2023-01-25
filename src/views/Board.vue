@@ -5,6 +5,8 @@
   import { useBoardStore } from '../../stores/board'
   import { useRoute } from 'vue-router'
   import Drag from '../components/Drag.vue'
+  import Card from '../components/Card.vue'
+  import Card2 from '../components/Card2.vue'
 
   const error = ref('')
   const squadData = useSquadStore()
@@ -80,6 +82,7 @@
     <div class="drag-and-drop">
       <Drag />
     </div>
+
     
   </main>
   

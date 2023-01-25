@@ -1,5 +1,7 @@
 <script>
   import Draggable from 'vuedraggable'
+import CardVue from './Card.vue';
+import Card2Vue from './Card2.vue';
 
   export default {
   components: {
@@ -9,8 +11,8 @@
       return {
         enabled: true,
         list: [
-          { name: 'John', id: 1 },
-          { name: 'Jane', id: 2 },
+          { component: CardVue, id: 1 },
+          { component: Card2Vue, id: 2 },
           { name: 'Philipp', id: 3 },
           { name: 'Gerard', id: 4 },
         ],
@@ -26,17 +28,17 @@
       <header class="column-header">
         <h4>Backlog</h4>
       </header>
-      <main class="column-main">
+      <main class="column-main"> 
         <draggable
-        class="dragArea list-group"
-        :list="list"
-        item-key="name">
-        <template #item="{ element }">
-          <div class="list-group-item">
-            {{ element.name }}
-          </div>
-        </template>
+          class="dragArea list-group" :list="list" item-key="name">
+          <template #item="{ element }">
+            <div class="list-group-item">
+              {{ element.component }}
+              
+            </div>
+          </template>
       </draggable>
+      
       </main> 
     </div>
 
@@ -88,7 +90,7 @@
   }
   .column-main{
     background-color: var(--grey);
-    height: 25vh;
+    height: 35vh;
     opacity: 40%;
   }
 </style>
