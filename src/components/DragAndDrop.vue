@@ -17,13 +17,16 @@
           { user: 'Jancsi', id: 1 },
           { user: 'Kali', id: 2 },
           { user: 'Sanyi', id: 3 },
-          { user: 'Pali', id: 4 },
         ],
         list2: [
           { user: 'Vivekananda', id: 5}
         ],
         list3: [
           { user: 'Harold', id: 6},
+          {desc: cardData.card[1].description}
+        ],
+        list4: [
+          { desc: cardData.card[0].description, open: cardData.card[0].openedAt  }
         ],
         dragging: false,
       }
@@ -79,7 +82,8 @@
             <div class="list-group-item">
               <div class="list-group-card">
                 {{ element.user }}
-                <p>{{ element.id }}</p>
+                <p>{{ element.open }}</p>
+                {{ element.desc }}
               </div>
               
             </div>
@@ -93,7 +97,17 @@
         <h4>Closed</h4>
       </header>
       <main class="column-main">
-      
+        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user">
+          <template #item="{ element }">
+            <div class="list-group-item">
+              <div class="list-group-card">
+                {{ element.desc }}
+                <p>{{ element.open }}</p>
+              </div>
+              
+            </div>
+          </template>
+      </draggable>
       </main>
     </div>
   </div>

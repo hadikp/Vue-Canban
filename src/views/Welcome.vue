@@ -35,6 +35,8 @@
   }))
    .catch(err => (error.value = 'Something wrong with datas, try again!'))
 
+   
+
   
 </script>
 
@@ -59,6 +61,7 @@
           <router-link class="board-squads-router" :to="{name: 'board', params: {id: squad.boardId}}"><h3>{{ squad.name }}</h3></router-link>
           <!-- :to="`/board/${squad.boardId}`"> -->
         </div>
+        
         <!-- <div class="board-squad-div">
           <font-awesome-icon class="board-icon" icon="thumbtack" />
           <h3>{{ squad.name }}</h3>

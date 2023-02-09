@@ -1,19 +1,37 @@
 <script setup>
-  import { ref } from 'vue'
   import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
   import { useBoardStore } from '../../stores/board'
   import { useRoute } from 'vue-router'
-  import Drag from '../components/Drag.vue'
-  import Card from '../components/Card.vue'
-  import Card2 from '../components/Card2.vue'
-
+  import DragAndDrop from '../components/DragAndDrop.vue'
+  import { ref, onMounted, computed, watch } from 'vue'
+  
+  
   const error = ref('')
   const squadData = useSquadStore()
   const swimlaneData = useSwimlaneStore()
   const boardData = useBoardStore()
   const route = useRoute() 
-  const id = route.params.id; //from welcome boardId
+  let name = ref('')
+  name = boardData.board[0].name
+
+  const idFromWelcome = route.params.id; //from welcome boardId
+  // const currentSquadArr = computed(() => currentSquadArr = idFromWelcome - 1)
+    
+   watch(idFromWelcome, newId => {
+      writeStorage(idFromWelcome, newId)
+   })
+
+   const writeStorage = (idFromWelcome, newId) => {
+    localStorage.setItem("idFromWelcome", newId);
+   }
+
+   writeStorage(idFromWelcome)
+ 
+  
+  
+  const currentId = localStorage.getItem('id')-1;
+  console.log(name)
 
 
 </script>
@@ -21,9 +39,9 @@
 <template>
   <main>
     <div class="board-title">
-      <h2>{{ squadData.squad[id-1].name }}  | Board</h2>
+      <h2>{{ squadData.squad[idFromWelcome-1].name }}  | Board</h2>
       <div class="board-path">
-        <h4>Welcome / Squads / {{ squadData.squad[id-1].name }} / Board</h4>
+        <h4>Welcome / Squads / {{ squadData.squad[idFromWelcome-1].name }} / Board</h4>
       </div>
     </div>
 
@@ -80,7 +98,7 @@
     </div>
 
     <div class="drag-and-drop">
-      <Drag />
+      <DragAndDrop />
     </div>
 
     
