@@ -16,22 +16,18 @@
   name = boardData.board[0].name
 
   const idFromWelcome = route.params.id; //from welcome boardId
-  // const currentSquadArr = computed(() => currentSquadArr = idFromWelcome - 1)
-    
-   watch(idFromWelcome, newId => {
-      writeStorage(idFromWelcome, newId)
-   })
 
-   const writeStorage = (idFromWelcome, newId) => {
-    localStorage.setItem("idFromWelcome", newId);
-   }
+  if(typeof(idFromWelcome) == 'undefined'){
+    console.log("A cache is ready, not write");
+  } else {
+    localStorage.setItem('id', idFromWelcome);
+  }
 
-   writeStorage(idFromWelcome)
- 
+  const currentSquadArr = localStorage.getItem('id')-1;
+
+  console.log(idFromWelcome)
   
   
-  const currentId = localStorage.getItem('id')-1;
-  console.log(name)
 
 
 </script>
@@ -39,9 +35,9 @@
 <template>
   <main>
     <div class="board-title">
-      <h2>{{ squadData.squad[idFromWelcome-1].name }}  | Board</h2>
+      <h2>{{ squadData.squad[currentSquadArr].name }}  | Board</h2>
       <div class="board-path">
-        <h4>Welcome / Squads / {{ squadData.squad[idFromWelcome-1].name }} / Board</h4>
+        <h4>Welcome / Squads / {{ squadData.squad[currentSquadArr].name }} / Board</h4>
       </div>
     </div>
 
