@@ -18,17 +18,12 @@
   const idFromWelcome = route.params.id; //from welcome boardId
 
   if(typeof(idFromWelcome) == 'undefined'){
-    console.log("A cache is ready, not write");
+    console.log("A cache is ready, no need to overwrite");
   } else {
     localStorage.setItem('id', idFromWelcome);
   }
 
   const currentSquadArr = localStorage.getItem('id')-1;
-
-  console.log(idFromWelcome)
-  
-  
-
 
 </script>
 

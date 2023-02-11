@@ -1,6 +1,8 @@
 <script>
+import { queuePostFlushCb } from '@vue/runtime-core'
   import Draggable from 'vuedraggable'
   import { useCardStore } from '../../stores/card'
+  import { computed } from 'vue'
 
   const cardData = useCardStore()
 
@@ -23,19 +25,31 @@
         ],
         list3: [
           { user: 'Harold', id: 6},
-          {desc: cardData.card[1].description}
+          { desc: cardData.card[0].description, open: cardData.card[0].openedAt  }
         ],
         list4: [
           { desc: cardData.card[0].description, open: cardData.card[0].openedAt  }
         ],
         dragging: false,
       }
+    },
+    methods: {
+      addList() {
+        this.list4.push({desc: cardData.card[1].description, open: cardData.card[1].openedAt})
+      } 
     }
 };
+
+/* const addList = computed(() => {
+  this.list4.push({desc: cardData.card[1].description, open: cardData.card[1].openedAt})
+}) */
+
+
 </script>
 
 <template>
   <div class="container">
+    
     <div class="column">
       <header class="column-header">
         <h4>Backlog</h4>
@@ -110,8 +124,9 @@
       </draggable>
       </main>
     </div>
+    <button class="button" @click="addList()">click me</button>
   </div>
-
+  
 </template>
 
 <style scoped>
@@ -151,6 +166,8 @@
     background: #F7FAFC;
     border: 1px solid #4299e1;
   }
+
+
   
   
   
