@@ -35,7 +35,9 @@ import { queuePostFlushCb } from '@vue/runtime-core'
     },
     methods: {
       addList() {
-        this.list4.push({desc: cardData.card[1].description, open: cardData.card[1].openedAt})
+        for(let i = 0; i < cardData.card.length; i++) {
+          this.list4.push({desc: cardData.card[i].description, open: cardData.card[i].openedAt})
+        }
       } 
     }
 };

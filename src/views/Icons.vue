@@ -44,12 +44,19 @@
     <font-awesome-icon icon="edit" />
     <font-awesome-icon icon="magic-wand-sparkles" />
     <font-awesome-icon icon="chevron-right" />
+    <font-awesome-icon class="address" icon="address-book" />
+    <font-awesome-icon  icon="address-card" />
+    
 
 </template>
 
 <style scoped>
   .smile {
     color: yellow;
+  }
+
+  .address{
+    border-radius: 50%;
   }
 
   
