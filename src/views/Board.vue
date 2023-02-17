@@ -1,6 +1,8 @@
 <script setup>
   import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
+  import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
+  import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { useBoardStore } from '../../stores/board'
   import { useRoute } from 'vue-router'
   import DragAndDrop from '../components/DragAndDrop.vue'
@@ -10,6 +12,8 @@
   const error = ref('')
   const squadData = useSquadStore()
   const swimlaneData = useSwimlaneStore()
+  const swimlane1CardData = useSwimlane1CardStore()
+  const swimlane2CardData = useSwimlane2CardStore()
   const boardData = useBoardStore()
   const route = useRoute() 
   let name = ref('')
@@ -82,15 +86,19 @@
     </div>
 
     <div class="swimlane" v-for="swimlane in swimlaneData.swimlane" :key="swimlane.id">
+      
       <div class="swimlane-row">
         <font-awesome-icon class="swimlane-icon" icon="chevron-right" />
         <p>{{ swimlane.name }}</p>
       </div>
     </div>
-
     <div class="drag-and-drop">
       <DragAndDrop />
     </div>
+    
+    
+
+    
 
     
   </main>
@@ -157,16 +165,20 @@
 }
 .swimlane{
   margin-left: 2rem;
+  position: relative;
 }
 .swimlane-row{
   display: flex;
   align-items: center;
   margin-top: 2rem;
+  
 }
 .swimlane-icon{
   margin-right: 0.5rem;
 }
 .drag-and-drop{
+  /* margin-top: -10rem; */
   margin-left: 2rem;
+  position: absolute;
 }
 </style>

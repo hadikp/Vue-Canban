@@ -1,8 +1,8 @@
 <script>
-import { queuePostFlushCb } from '@vue/runtime-core'
   import Draggable from 'vuedraggable'
   import { useCardStore } from '../../stores/card'
-  import { computed } from 'vue'
+  import Card from './Card.vue'
+
 
   const cardData = useCardStore()
 
@@ -21,14 +21,16 @@ import { queuePostFlushCb } from '@vue/runtime-core'
           { user: 'Sanyi', id: 3 },
         ],
         list2: [
-          { user: 'Vivekananda', id: 5}
+          { desc: cardData.card[0].description, openWeek: cardData.card[0].cardExistTime.existInWeek,
+            openDay: cardData.card[0].cardExistTime.remainDays}
         ],
         list3: [
-          { user: 'Harold', id: 6},
-          { desc: cardData.card[0].description, open: cardData.card[0].openedAt  }
+          { desc: cardData.card[0].description, openWeek: cardData.card[0].cardExistTime.existInWeek,
+            openDay: cardData.card[0].cardExistTime.remainDays }
         ],
         list4: [
-          { desc: cardData.card[0].description, open: cardData.card[0].openedAt  }
+          { desc: cardData.card[0].description, openWeek: cardData.card[0].cardExistTime.existInWeek,
+            openDay: cardData.card[0].cardExistTime.remainDays }
         ],
         dragging: false,
       }
@@ -36,15 +38,12 @@ import { queuePostFlushCb } from '@vue/runtime-core'
     methods: {
       addList() {
         for(let i = 0; i < cardData.card.length; i++) {
-          this.list4.push({desc: cardData.card[i].description, open: cardData.card[i].openedAt})
+          this.list4.push({desc: cardData.card[i].description, openWeek: cardData.card[i].cardExistTime.existInWeek,
+            openDay: cardData.card[i].cardExistTime.remainDays})
         }
       } 
     }
 };
-
-/* const addList = computed(() => {
-  this.list4.push({desc: cardData.card[1].description, open: cardData.card[1].openedAt})
-}) */
 
 
 </script>
@@ -61,6 +60,7 @@ import { queuePostFlushCb } from '@vue/runtime-core'
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
+                <font-awesome-icon  icon="address-book" />
                 {{ element.user }}
                 <p>{{ element.id }}</p>
               </div>
@@ -79,8 +79,10 @@ import { queuePostFlushCb } from '@vue/runtime-core'
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
-                {{ element.user }}
-                <p>{{ element.id }}</p>
+                <font-awesome-icon  icon="address-book" />
+                <p>{{ element.user }}</p>
+                <p>{{ element.desc }}</p>
+                <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
             </div>
           </template>
@@ -97,9 +99,10 @@ import { queuePostFlushCb } from '@vue/runtime-core'
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
-                {{ element.user }}
-                <p>{{ element.open }}</p>
-                {{ element.desc }}
+                <font-awesome-icon  icon="address-book" />
+                <p>{{ element.user }}</p>
+                <p>{{ element.desc }}</p>
+                <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
               
             </div>
@@ -117,8 +120,10 @@ import { queuePostFlushCb } from '@vue/runtime-core'
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
-                {{ element.desc }}
-                <p>{{ element.open }}</p>
+                <font-awesome-icon  icon="address-book" />
+                <p>{{ element.user }}</p>
+                <p>{{ element.desc }}</p>
+                <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
               
             </div>
@@ -148,7 +153,7 @@ import { queuePostFlushCb } from '@vue/runtime-core'
   }
   .column-main{
     background-color: rgba(147, 147, 147, 0.5);
-    /* opacity: 40%; */
+    min-height: 10vh;
     position: absolute;
     padding-bottom: 1rem;
   }
@@ -161,6 +166,7 @@ import { queuePostFlushCb } from '@vue/runtime-core'
     background-color: #fff;
     color: #000;
     margin-left: 1rem;
+    padding: 0.5rem;
     width: 13vw;
   }
   .ghost-card{
