@@ -1,19 +1,15 @@
 <script setup>
   import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
-  import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
-  import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { useBoardStore } from '../../stores/board'
   import { useRoute } from 'vue-router'
   import DragAndDrop from '../components/DragAndDrop.vue'
-  import { ref, onMounted, computed, watch } from 'vue'
+  import { ref } from 'vue'
   
   
   const error = ref('')
   const squadData = useSquadStore()
   const swimlaneData = useSwimlaneStore()
-  const swimlane1CardData = useSwimlane1CardStore()
-  const swimlane2CardData = useSwimlane2CardStore()
   const boardData = useBoardStore()
   const route = useRoute() 
   let name = ref('')

@@ -1,10 +1,13 @@
 <script>
   import Draggable from 'vuedraggable'
   import { useCardStore } from '../../stores/card'
+  import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
   import Card from './Card.vue'
 
 
   const cardData = useCardStore()
+  const swimlane1CardData = useSwimlane1CardStore()
+  const cardZero = cardData.card[0].id;
 
 
   export default {
@@ -16,30 +19,36 @@
       return {
         enabled: true,
         list: [
-          { user: 'Jancsi', id: 1 },
-          { user: 'Kali', id: 2 },
-          { user: 'Sanyi', id: 3 },
+          { user: 'start', desc: cardData.card[0].id}
         ],
         list2: [
-          { desc: cardData.card[0].description, openWeek: cardData.card[0].cardExistTime.existInWeek,
-            openDay: cardData.card[0].cardExistTime.remainDays}
+          { user: 'start', desc: cardData.card[0].id}
         ],
         list3: [
-          { desc: cardData.card[0].description, openWeek: cardData.card[0].cardExistTime.existInWeek,
-            openDay: cardData.card[0].cardExistTime.remainDays }
+          { user: 'start', desc: cardData.card[0].id }
         ],
         list4: [
-          { desc: cardData.card[0].description, openWeek: cardData.card[0].cardExistTime.existInWeek,
-            openDay: cardData.card[0].cardExistTime.remainDays }
+          { user: 'start', desc: cardData.card[0].id }
         ],
         dragging: false,
       }
     },
     methods: {
       addList() {
-        for(let i = 0; i < cardData.card.length; i++) {
-          this.list4.push({desc: cardData.card[i].description, openWeek: cardData.card[i].cardExistTime.existInWeek,
-            openDay: cardData.card[i].cardExistTime.remainDays})
+        for(let i = 0; i < swimlane1CardData.swimlane1Card.length; i++) {
+          if(swimlane1CardData.swimlane1Card[i].colId == 1){
+            this.list.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
+            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
+          } else if(swimlane1CardData.swimlane1Card[i].colId == 2){
+            this.list2.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
+            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
+          } else if(swimlane1CardData.swimlane1Card[i].colId == 3){
+            this.list3.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
+            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
+          } else {
+            this.list4.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
+            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
+          }
         }
       } 
     }
@@ -59,10 +68,11 @@
         <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" item-key="user">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div class="list-group-card">
+              <div v-if="element.user != 'start'"  class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
-                {{ element.user }}
-                <p>{{ element.id }}</p>
+                <p>{{ element.user }}</p>
+                <p>{{ element.desc }}</p>
+                <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
             </div>
           </template>
@@ -78,7 +88,7 @@
         <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div class="list-group-card">
+              <div v-if="element.user != 'start'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.desc }}</p>
@@ -98,7 +108,7 @@
         <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div class="list-group-card">
+              <div v-if="element.user != 'start'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.desc }}</p>
@@ -119,7 +129,7 @@
         <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div class="list-group-card">
+              <div v-if="element.user != 'start'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.desc }}</p>
