@@ -52,10 +52,6 @@ import { RouterView, RouterLink } from 'vue-router'
           <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
           <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
         </div>
-        <div class="nav-ul-li-div">
-          <font-awesome-icon class="nav-icon" icon="fa-regular fa-calendar-check" />
-          <li><router-link class="nav-ul-li" :to="{name: 'project'}">Project</router-link></li>
-        </div>
       </ul>
     </nav>
     <router-view />
@@ -88,21 +84,20 @@ header {
 }
 
 .main-container {
-    min-height: 100vh;
+    min-height: 90vh;
     min-height: -moz-available;
     min-height: -webkit-fill-available;
     background-image: url(./assets/feher_hatter.png);
-    background-size: cover;
+    background-size: contain;
     display: flex;
   }
 
 .footer-div{
-    /* background-color: #bbb; */
     color: orange;
     font-size: 1.5rem;
-    position: absolute;
+    /* position: absolute; */
     flex-shrink: 0;
-    bottom: 0;
+    /* bottom: 0; */
     width: 100%;
     height: 2.5rem; 
     margin-top: 1rem;
@@ -115,7 +110,7 @@ header {
     font-size: 1rem;
     text-transform: uppercase;
     justify-content: flex-start; 
-    align-items: center;
+    /* align-items: center; */
   }
 
   .nav-ul {

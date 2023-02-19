@@ -81,21 +81,31 @@
       </div>
     </div>
 
-    <div class="swimlane" v-for="swimlane in swimlaneData.swimlane" :key="swimlane.id">
-      
-      <div class="swimlane-row">
-        <font-awesome-icon class="swimlane-icon" icon="chevron-right" />
-        <p>{{ swimlane.name }}</p>
+    <div class="swimlane">
+        <div class="swimlane-row">
+          <div class="icon-name">
+            <font-awesome-icon class="swimlane-icon" icon="chevron-right" />
+            <p> {{ swimlaneData.swimlane[0].name }}</p>
+          </div>
+          <div class="drag-and-drop">
+            <DragAndDrop />
+          </div>
       </div>
-    </div>
-    <div class="drag-and-drop">
-      <DragAndDrop />
-    </div>
-    
-    
 
+        <div class="swimlane-row">
+          <div class="icon-name">
+            <font-awesome-icon class="swimlane-icon" icon="chevron-right" />
+            <p>{{ swimlaneData.swimlane[1].name }}</p>
+          </div>
+          <div class="drag-and-drop">
+            <DragAndDrop />
+          </div>
+        </div>
+          
+    </div>
+      
     
-
+    
     
   </main>
   
@@ -161,13 +171,14 @@
 }
 .swimlane{
   margin-left: 2rem;
-  position: relative;
 }
 .swimlane-row{
+  
+  margin-top: 2rem;
+}
+.icon-name{
   display: flex;
   align-items: center;
-  margin-top: 2rem;
-  
 }
 .swimlane-icon{
   margin-right: 0.5rem;
@@ -175,6 +186,5 @@
 .drag-and-drop{
   /* margin-top: -10rem; */
   margin-left: 2rem;
-  position: absolute;
 }
 </style>

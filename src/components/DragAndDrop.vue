@@ -7,8 +7,6 @@
 
   const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
-  const cardZero = cardData.card[0].id;
-
 
   export default {
   components: {
@@ -114,7 +112,6 @@
                 <p>{{ element.desc }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
-              
             </div>
           </template>
       </draggable>
@@ -135,7 +132,6 @@
                 <p>{{ element.desc }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
-              
             </div>
           </template>
       </draggable>
@@ -164,12 +160,11 @@
   .column-main{
     background-color: rgba(147, 147, 147, 0.5);
     min-height: 10vh;
-    position: absolute;
     padding-bottom: 1rem;
+    padding-top: 0.5rem;
   }
   .list-group-item{
     margin-top: 0.5rem;
-    position: relative;
     width: 18vw;
   }
   .list-group-card{
