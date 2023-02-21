@@ -2,16 +2,21 @@
   import Draggable from 'vuedraggable'
   import { useCardStore } from '../../stores/card'
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
-  import Card from './Card.vue'
+  import { ref } from 'vue'
+
 
 
   const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
+  /* const swimlaneIdFromBoard = swimlaneId
+  const props = defineProps(['swim'])
+  console.log(props.swim) */
+
 
   export default {
   components: {
-    Draggable
-    
+    Draggable,
+    props: ['swimlaneId']
   },
   data() {
       return {
@@ -33,25 +38,32 @@
     },
     methods: {
       addList() {
-        for(let i = 0; i < swimlane1CardData.swimlane1Card.length; i++) {
-          if(swimlane1CardData.swimlane1Card[i].colId == 1){
-            this.list.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
-            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
-          } else if(swimlane1CardData.swimlane1Card[i].colId == 2){
-            this.list2.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
-            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
-          } else if(swimlane1CardData.swimlane1Card[i].colId == 3){
-            this.list3.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
-            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
+        const swimlaneCardsArr = swimlane1CardData.swimlane1Card;
+        for(let i = 0; i < swimlaneCardsArr.length; i++) {
+          if(swimlaneCardsArr[i].colId == 1){
+            this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+          } else if(swimlaneCardsArr[i].colId == 2){
+            this.list2.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+          } else if(swimlaneCardsArr[i].colId == 3){
+            this.list3.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
           } else {
-            this.list4.push({desc: swimlane1CardData.swimlane1Card[i].description, openWeek: swimlane1CardData.swimlane1Card[i].cardExistTime.existInWeek,
-            openDay: swimlane1CardData.swimlane1Card[i].cardExistTime.remainDays})
+            this.list4.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
           }
         }
-      } 
+      },
+      emit(event){
+        console.log(event)
+      }
+      /* update(event, element) {
+        // console.log(element)
+        console.log(this.$refs.change.value)
+      }  */
     }
 };
-
 
 </script>
 
@@ -63,7 +75,7 @@
         <h4>Backlog</h4>
       </header>
       <main class="column-main"> 
-        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" item-key="user">
+        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" ref="change" item-key="user" @change="$emit($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'"  class="list-group-card">
@@ -76,6 +88,7 @@
           </template>
       </draggable>
       </main> 
+      
     </div>
 
     <div class="column">
@@ -83,7 +96,7 @@
         <h4>Ready to work</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user">
+        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" @change="$emit($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -103,7 +116,7 @@
         <h4>Active</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user">
+        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" @change="$emit($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -123,7 +136,7 @@
         <h4>Closed</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user">
+        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" @change="$emit($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -139,6 +152,8 @@
     </div>
     <button class="button" @click="addList()">click me</button>
   </div>
+
+  <div>{{ swimlaneId }}</div>
   
 </template>
 
