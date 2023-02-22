@@ -8,15 +8,15 @@
 
   const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
-  /* const swimlaneIdFromBoard = swimlaneId
-  const props = defineProps(['swim'])
-  console.log(props.swim) */
+   /* const swimlaneIdFromBoard = swimlaneId
+  const props = defineProps(['swimlaneId'])
+ console.log(props.swim) */
 
 
   export default {
+    props: ['swimlaneId'],
   components: {
-    Draggable,
-    props: ['swimlaneId']
+    Draggable
   },
   data() {
       return {
@@ -55,13 +55,10 @@
           }
         }
       },
-      emit(event){
-        console.log(event)
-      }
-      /* update(event, element) {
+       update(event, element) {
         // console.log(element)
         console.log(this.$refs.change.value)
-      }  */
+      }  
     }
 };
 
@@ -75,7 +72,7 @@
         <h4>Backlog</h4>
       </header>
       <main class="column-main"> 
-        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" ref="change" item-key="user" @change="$emit($event, 15)">
+        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" ref="change" item-key="user" @change="update($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'"  class="list-group-card">
@@ -96,7 +93,7 @@
         <h4>Ready to work</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" @change="$emit($event, 15)">
+        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -116,7 +113,7 @@
         <h4>Active</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" @change="$emit($event, 15)">
+        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -136,7 +133,7 @@
         <h4>Closed</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" @change="$emit($event, 15)">
+        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -151,9 +148,10 @@
       </main>
     </div>
     <button class="button" @click="addList()">click me</button>
+    <div>{{ swimlaneId }}</div>
   </div>
 
-  <div>{{ swimlaneId }}</div>
+  
   
 </template>
 

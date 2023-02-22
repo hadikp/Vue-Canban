@@ -25,7 +25,7 @@
 
   const currentSquadArr = localStorage.getItem('id')-1;
 
-  // const swim = ref('')
+  const swimlaneId = ref('')
 
 </script>
 
@@ -90,7 +90,7 @@
             <p> {{ swimlaneData.swimlane[0].name }}</p>
           </div>
           <div class="drag-and-drop">
-             <DragAndDrop :swimlaneId = swimlaneData.swimlane[1].id /> <!--v-bind:swimlaneId = swimlaneData.swimlane[0].id -->
+             <DragAndDrop :swimlaneId = swimlaneData.swimlane[0].id /> <!--v-bind:swimlaneId = swimlaneData.swimlane[0].id -->
           </div>
       </div>
 
