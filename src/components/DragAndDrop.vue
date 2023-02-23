@@ -2,16 +2,14 @@
   import Draggable from 'vuedraggable'
   import { useCardStore } from '../../stores/card'
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
+  import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { ref } from 'vue'
 
 
 
   const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
-   /* const swimlaneIdFromBoard = swimlaneId
-  const props = defineProps(['swimlaneId'])
- console.log(props.swim) */
-
+  const swimlane2CardData = useSwimlane2CardStore()
 
   export default {
     props: ['swimlaneId'],
@@ -38,29 +36,51 @@
     },
     methods: {
       addList() {
-        const swimlaneCardsArr = swimlane1CardData.swimlane1Card;
-        for(let i = 0; i < swimlaneCardsArr.length; i++) {
-          if(swimlaneCardsArr[i].colId == 1){
-            this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-          } else if(swimlaneCardsArr[i].colId == 2){
-            this.list2.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-          } else if(swimlaneCardsArr[i].colId == 3){
-            this.list3.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-          } else {
-            this.list4.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-            openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+        if(this.swimlaneId == 1){
+          const swimlaneCardsArr = swimlane1CardData.swimlane1Card;
+          for(let i = 0; i < swimlaneCardsArr.length; i++) {
+            if(swimlaneCardsArr[i].colId == 1){
+              this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            } else if(swimlaneCardsArr[i].colId == 2){
+              this.list2.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            } else if(swimlaneCardsArr[i].colId == 3){
+              this.list3.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            } else {
+              this.list4.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            }
+          }
+        } else{
+          const swimlaneCardsArr = swimlane2CardData.swimlane2Card;
+          for(let i = 0; i < swimlaneCardsArr.length; i++) {
+            if(swimlaneCardsArr[i].colId == 1){
+              this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            } else if(swimlaneCardsArr[i].colId == 2){
+              this.list2.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            } else if(swimlaneCardsArr[i].colId == 3){
+              this.list3.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            } else {
+              this.list4.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+            }
           }
         }
-      },
-       update(event, element) {
+      } 
+    } 
+    
+  }
+    
+
+
+/* update(event, element) {
         // console.log(element)
-        console.log(this.$refs.change.value)
-      }  
-    }
-};
+        console.log(this.$refs.change.value) */
 
 </script>
 
@@ -148,7 +168,6 @@
       </main>
     </div>
     <button class="button" @click="addList()">click me</button>
-    <div>{{ swimlaneId }}</div>
   </div>
 
   
