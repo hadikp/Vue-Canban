@@ -3,9 +3,7 @@
   import { useCardStore } from '../../stores/card'
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
   import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
-  import { ref } from 'vue'
-
-
+  import { ref, watch } from 'vue'
 
   const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
@@ -19,22 +17,39 @@
   data() {
       return {
         enabled: true,
-        list: [
-          { user: 'start', desc: cardData.card[0].id}
-        ],
-        list2: [
-          { user: 'start', desc: cardData.card[0].id}
-        ],
-        list3: [
-          { user: 'start', desc: cardData.card[0].id }
-        ],
-        list4: [
-          { user: 'start', desc: cardData.card[0].id }
-        ],
+        list: [],
+        list2: [],
+        list3: [],
+        list4: [],
         dragging: false,
       }
     },
+    computed: {
+      list2_length() {
+        return this.list2.length
+      }
+    },
+    watch: {
+      list2_length(newVal, oldVal){
+        if(newVal > oldVal) {
+          this.list2Monitor()
+        }
+      },
+        list3:{
+        handler: function (val, oldVal){
+          this.list3Monitor()
+        },
+        deep:true
+      }  
+    },
     methods: {
+      list2Monitor() {
+          console.log("List2 changed, new length: " + this.list2.length)
+        },
+      list3Monitor() {
+        console.log("List3 changed, new length: " + this.list3.length)
+      },
+
       addList() {
         if(this.swimlaneId == 1){
           const swimlaneCardsArr = swimlane1CardData.swimlane1Card;
@@ -71,9 +86,28 @@
             }
           }
         }
-      } 
+      },
+      update($event, list) {
+        //  console.log(list.find('desc'))
+        //  console.log($event.added.element.id)
+        //  console.log($event.removed)
+         /* const element = $event.added
+         console.log(element.newIndex) */
+        //  console.log($event.removed.oldIndex)
+      },
+      checkMove(evt) {
+        // console.log(evt.relatedContext.list)
+        // console.log(evt.draggedContext) //adott oszlopban hányadik sor
+        //console.log(evt.draggedRect) //koordináták
+        //console.log(evt.from) //melyik oszlopból származik a kártya
+        //console.log(evt.related) //mozgatott kártya HTML része
+        //console.log(evt.relatedContext.list)
+        console.log(evt.draggedContext)
+      },
+      log(evt) {
+        //console.log(evt)
+      }
     } 
-    
   }
     
 
@@ -92,10 +126,10 @@
         <h4>Backlog</h4>
       </header>
       <main class="column-main"> 
-        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" ref="change" item-key="user" @change="update($event, 15)">
+        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" item-key="user" @change="log" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div v-if="element.user != 'start'"  class="list-group-card">
+              <div   class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.desc }}</p>
@@ -103,7 +137,7 @@
               </div>
             </div>
           </template>
-      </draggable>
+        </draggable>
       </main> 
       
     </div>
@@ -113,7 +147,7 @@
         <h4>Ready to work</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
+        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" @change="log" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
