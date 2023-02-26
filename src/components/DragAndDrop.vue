@@ -45,32 +45,26 @@
     methods: {
       list2Monitor() {
           console.log("List2 changed, new length: " + this.list2.length)
+        for(let i = 0; i < this.list2.length; i++) {
+          if(swimlane1CardData.swimlane1Card[i].colId != 2){
+            console.log("Ez a colId nem 2-es")
+          }
+        }
         },
       list3Monitor() {
         console.log("List3 changed, new length: " + this.list3.length)
       },
-
       addList() {
         if(this.swimlaneId == 1){
           const swimlaneCardsArr = swimlane1CardData.swimlane1Card;
-          for(let i = 0; i < swimlaneCardsArr.length; i++) {
-            if(swimlaneCardsArr[i].colId == 1){
-              this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-            } else if(swimlaneCardsArr[i].colId == 2){
-              this.list2.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-            } else if(swimlaneCardsArr[i].colId == 3){
-              this.list3.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-            } else {
-              this.list4.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
-            }
-          }
+          this.pushCards(swimlaneCardsArr); 
         } else{
           const swimlaneCardsArr = swimlane2CardData.swimlane2Card;
-          for(let i = 0; i < swimlaneCardsArr.length; i++) {
+          this.pushCards(swimlaneCardsArr); 
+        }
+      },
+      pushCards(swimlaneCardsArr){
+        for(let i = 0; i < swimlaneCardsArr.length; i++) {
             if(swimlaneCardsArr[i].colId == 1){
               this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
@@ -85,7 +79,6 @@
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             }
           }
-        }
       },
       update($event, list) {
         //  console.log(list.find('desc'))
@@ -170,7 +163,7 @@
         <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div v-if="element.user != 'start'" class="list-group-card">
+              <div class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.desc }}</p>
@@ -190,7 +183,7 @@
         <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div v-if="element.user != 'start'" class="list-group-card">
+              <div class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.desc }}</p>
