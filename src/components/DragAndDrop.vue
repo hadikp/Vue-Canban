@@ -4,10 +4,13 @@
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
   import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { ref, watch } from 'vue'
+  import axios from 'redaxios'
 
   const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
+
+
 
   export default {
     props: ['swimlaneId'],
@@ -46,13 +49,24 @@
       list2Monitor() {
           console.log("List2 changed, new length: " + this.list2.length)
         for(let i = 0; i < this.list2.length; i++) {
-          if(swimlane1CardData.swimlane1Card[i].colId != 2){
-            console.log("Ez a colId nem 2-es")
+           const cardId = this.list2[i].cardId  //a list2-ben lévő card-ok id-je
+           const columnId = 2
+          if(this.list2[i].colId != 2){
+            this.axiosFgPost(columnId, cardId)
+            }
           }
-        }
         },
       list3Monitor() {
         console.log("List3 changed, new length: " + this.list3.length)
+      },
+      axiosFgPost(columnId, cardId) {
+        axios.post(`http://localhost:8080/api/col/${columnId}/card/${cardId}`,
+              { //  email:  email.value,
+              }).then(resp => {
+                console.log(resp.data)
+               // userData.user = resp.data
+              })
+              .catch(err => (error.value = 'Hibás axios hívás, próbáld meg újra'))
       },
       addList() {
         if(this.swimlaneId == 1){
@@ -66,16 +80,16 @@
       pushCards(swimlaneCardsArr){
         for(let i = 0; i < swimlaneCardsArr.length; i++) {
             if(swimlaneCardsArr[i].colId == 1){
-              this.list.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 2){
-              this.list2.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list2.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 3){
-              this.list3.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list3.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else {
-              this.list4.push({desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list4.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             }
           }
