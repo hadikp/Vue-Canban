@@ -20,7 +20,7 @@
   data() {
       return {
         enabled: true,
-        list: [],
+        list1: [],
         list2: [],
         list3: [],
         list4: [],
@@ -28,37 +28,82 @@
       }
     },
     computed: {
+      list1_length() {
+        return this.list1.length
+      },
       list2_length() {
         return this.list2.length
+      },
+      list3_length() {
+        return this.list3.length
+      },
+      list4_length() {
+        return this.list4.length
       }
     },
     watch: {
+      list1_length(newVal, oldVal){
+        if(newVal > oldVal) {
+          this.list1Monitor()
+        }
+      },
       list2_length(newVal, oldVal){
         if(newVal > oldVal) {
           this.list2Monitor()
         }
       },
-        list3:{
-        handler: function (val, oldVal){
+      list3_length(newVal, oldVal){
+        if(newVal > oldVal) {
           this.list3Monitor()
-        },
-        deep:true
-      }  
+        }
+      },
+      list4_length(newVal, oldVal){
+        if(newVal > oldVal) {
+          this.list4Monitor()
+        }
+      },
     },
     methods: {
+      list1Monitor() {
+          console.log("List1 changed, new length: " + this.list1.length)
+        for(let i = 0; i < this.list1.length; i++) {
+           const cardId = this.list1[i].cardId  //a list1-ben lévő card-ok id-je
+           const columnId = 1
+          if(this.list1[i].colId != columnId){
+            this.axiosFgPost(columnId, cardId)
+            }
+          }
+        },
       list2Monitor() {
           console.log("List2 changed, new length: " + this.list2.length)
         for(let i = 0; i < this.list2.length; i++) {
            const cardId = this.list2[i].cardId  //a list2-ben lévő card-ok id-je
            const columnId = 2
-          if(this.list2[i].colId != 2){
+          if(this.list2[i].colId != columnId){
             this.axiosFgPost(columnId, cardId)
             }
           }
         },
-      list3Monitor() {
-        console.log("List3 changed, new length: " + this.list3.length)
-      },
+        list3Monitor() {
+          console.log("List3 changed, new length: " + this.list3.length)
+        for(let i = 0; i < this.list3.length; i++) {
+           const cardId = this.list3[i].cardId  //a list3-ben lévő card-ok id-je
+           const columnId = 3
+          if(this.list3[i].colId != columnId){
+            this.axiosFgPost(columnId, cardId)
+            }
+          }
+        },
+        list4Monitor() {
+          console.log("List4 changed, new length: " + this.list4.length)
+        for(let i = 0; i < this.list4.length; i++) {
+           const cardId = this.list4[i].cardId  //a list3-ben lévő card-ok id-je
+           const columnId = 4
+          if(this.list4[i].colId != columnId){
+            this.axiosFgPost(columnId, cardId)
+            }
+          }
+        },
       axiosFgPost(columnId, cardId) {
         axios.post(`http://localhost:8080/api/col/${columnId}/card/${cardId}`,
               { //  email:  email.value,
@@ -80,7 +125,7 @@
       pushCards(swimlaneCardsArr){
         for(let i = 0; i < swimlaneCardsArr.length; i++) {
             if(swimlaneCardsArr[i].colId == 1){
-              this.list.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list1.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 2){
               this.list2.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
@@ -133,7 +178,7 @@
         <h4>Backlog</h4>
       </header>
       <main class="column-main"> 
-        <draggable class="dragArea list-group" :list="list" ghost-class="ghost-card" group="list" item-key="user" @change="log" :move="checkMove">
+        <draggable class="dragArea list-group" :list="list1" ghost-class="ghost-card" group="list" item-key="user" @change="log" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
               <div   class="list-group-card">
@@ -252,9 +297,4 @@
     background: #F7FAFC;
     border: 1px solid #4299e1;
   }
-
-
-  
-  
-  
 </style>
