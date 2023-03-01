@@ -75,7 +75,6 @@
           }
         },
       list2Monitor() {
-          console.log("List2 changed, new length: " + this.list2.length)
         for(let i = 0; i < this.list2.length; i++) {
            const cardId = this.list2[i].cardId  //a list2-ben lévő card-ok id-je
            const columnId = 2
@@ -85,7 +84,6 @@
           }
         },
         list3Monitor() {
-          console.log("List3 changed, new length: " + this.list3.length)
         for(let i = 0; i < this.list3.length; i++) {
            const cardId = this.list3[i].cardId  //a list3-ben lévő card-ok id-je
            const columnId = 3
@@ -95,9 +93,8 @@
           }
         },
         list4Monitor() {
-          console.log("List4 changed, new length: " + this.list4.length)
         for(let i = 0; i < this.list4.length; i++) {
-           const cardId = this.list4[i].cardId  //a list3-ben lévő card-ok id-je
+           const cardId = this.list4[i].cardId  //a list4-ben lévő card-ok id-je
            const columnId = 4
           if(this.list4[i].colId != columnId){
             this.axiosFgPost(columnId, cardId)

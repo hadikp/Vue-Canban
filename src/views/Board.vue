@@ -78,7 +78,7 @@
         </button>
         <button class="search-icon-plus">
           <font-awesome-icon class="search-icon-icon" icon="plus" />
-          <h4>New card</h4>
+          <router-link class="create-card" :to="{name: 'create-card'}"><h4>New card</h4></router-link>
         </button>
       </div>
     </div>
@@ -188,5 +188,9 @@
 .drag-and-drop{
   /* margin-top: -10rem; */
   margin-left: 2rem;
+}
+.create-card{
+  text-decoration: none;
+  color: #fff;
 }
 </style>
