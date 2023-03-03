@@ -41,22 +41,39 @@
       <h2>Create Card</h2>
       <form class="" v-on:submit.prevent="create">
         <p>{{ error }}</p>
-        <p><label for="title">Card title</label>
-        <input id="title" type="text" placeholder="Card title" v-model="title"></p>
-        <p><label for="description">Card description</label>
-        <input id="description" type="text" placeholder="Card description" v-model="description"></p>
-        <p><label for="priority">Card priority</label>
-        <input id="priority" type="text" placeholder="Card priority" v-model="priority"></p>
-        <p><label for="positioNum">Card positioNum</label>
-        <input id="positioNum" type="text" placeholder="Card positioNum" v-model="positioNum"></p>
-        <p><label for="dueAt">Card dueAt</label>
-        <input id="dueAt" type="text" placeholder="Card dueAt" v-model="dueAt"></p>
-        <p><label for="colId">Card colId</label>
-        <input id="colId" type="text" placeholder="Card colId" v-model="colId"></p>
-        <p><label for="userId">Card userId</label>
-        <input id="userId" type="text" placeholder="Card userId" v-model="userId"></p>
-        <p><label for="swimlaneId">Card swimlaneId</label>
-        <input id="swimlaneId" type="text" placeholder="Card swimlaneId" v-model="swimlaneId"></p>
+        <div class="form-row">
+          <label for="title">Card title: </label>
+          <input type="text" name="title" placeholder="max. 50 character" v-model="title">
+        </div>
+        <div class="form-row">
+          <label for="description">Card description:</label>
+          <textarea name="description" placeholder="max. 150 character" v-model="description"></textarea>
+        </div>
+        <div class="form-row">
+          <label for="priority">Card priority:</label>
+          <input  type="text" name="title" placeholder="Card priority" v-model="priority">
+        </div>
+        <div class="form-row">
+          <label for="positioNum">Card positioNum:</label>
+        <input id="positioNum" type="text" name="title" placeholder="Card positioNum" v-model="positioNum">
+        </div>
+        <div class="form-row">
+          <label for="dueAt">Card dueAt:</label>
+        <input id="dueAt" type="text" name="title" placeholder="Card dueAt" v-model="dueAt">
+        </div>
+        <div class="form-row">
+          <label for="colId">Card colId:</label>
+        <input id="colId" type="text" name="title" placeholder="Card colId" v-model="colId">
+        </div>
+        <div class="form-row">
+          <label for="userId">Card userId:</label>
+        <input id="userId" type="text" name="title" placeholder="Card userId" v-model="userId">
+        </div>
+        <div class="form-row">
+          <label for="swimlaneId">Card swimlaneId:</label>
+        <input id="swimlaneId" type="text" placeholder="Card swimlaneId" v-model="swimlaneId">
+        </div>
+        
         
         <button>To Board</button>
       
@@ -66,4 +83,20 @@
 </template>
 
 <style scoped>
+  .content{
+    margin: 2rem;
+  }
+  .form-row{
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+    width: 30vw;
+  }
+  .form-row > label{
+    flex: 1;
+  }
+  .form-row > input,textarea{
+    flex: 2;
+  }
+  
 </style>

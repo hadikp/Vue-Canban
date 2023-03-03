@@ -122,16 +122,16 @@
       pushCards(swimlaneCardsArr){
         for(let i = 0; i < swimlaneCardsArr.length; i++) {
             if(swimlaneCardsArr[i].colId == 1){
-              this.list1.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list1.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 2){
-              this.list2.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list2.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 3){
-              this.list3.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list3.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else {
-              this.list4.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+              this.list4.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
               openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             }
           }
@@ -181,7 +181,7 @@
               <div   class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
-                <p>{{ element.desc }}</p>
+                <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
             </div>
@@ -202,7 +202,7 @@
               <div v-if="element.user != 'start'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
-                <p>{{ element.desc }}</p>
+                <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
             </div>
@@ -222,7 +222,7 @@
               <div class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
-                <p>{{ element.desc }}</p>
+                <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
             </div>
@@ -242,7 +242,7 @@
               <div class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
-                <p>{{ element.desc }}</p>
+                <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
               </div>
             </div>
