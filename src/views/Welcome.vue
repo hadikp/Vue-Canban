@@ -6,7 +6,6 @@
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
   import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { useBoardStore } from '../../stores/board'
-  import { useCardStore } from '../../stores/card'
   import { RouterLink } from 'vue-router';
 
   const error = ref('')
@@ -15,7 +14,6 @@
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
   const boardData = useBoardStore()
-  const cardData = useCardStore()
 
   //multiple axios and put pinia store
   let urls = [
@@ -23,25 +21,22 @@
     'api/swimlane',
     'api/card/swimlane/1',
     'api/card/swimlane/2',
-    'api/board',
-    'api/card'
+    'api/board'
   ]
   const requests = urls.map(url => axios.get(url))
 
-  axios.all(requests).then(axios.spread((squadDatas, swimlaneDatas, swimlane1Card, swimlane2Card, boardDatas, cardDatas) => {
+  axios.all(requests).then(axios.spread((squadDatas, swimlaneDatas, swimlane1Card, swimlane2Card, boardDatas) => {
     const squadArr = squadDatas.data
     const swimlaneArr = swimlaneDatas.data
     const swimlane1CardArr = swimlane1Card.data
     const swimlane2CardArr = swimlane2Card.data
     const boardArr = boardDatas.data
-    const cardArr = cardDatas.data
     
     squadData.squad = squadArr
     swimlaneData.swimlane = swimlaneArr
     swimlane1CardData.swimlane1Card = swimlane1CardArr
     swimlane2CardData.swimlane2Card = swimlane2CardArr
     boardData.board = boardArr
-    cardData.card = cardArr
   }))
    .catch(err => (error.value = 'Something wrong with datas, try again!'))
 

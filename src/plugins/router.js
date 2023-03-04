@@ -8,6 +8,7 @@ const routes = [
   {path: '/project', name: 'project', component: () => import('../views/Project.vue')},
   {path: '/icons', name: 'icons', component: () => import('../views/Icons.vue')},
   {path: '/createCard', name: 'create-card', component: () => import('../views/CreateCard.vue')},
+  {path: '/updateCard/:id?', name: 'update-card', component: () => import('../views/UpdateCard.vue')},
 ]
 
 const router = createRouter({

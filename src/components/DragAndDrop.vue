@@ -151,7 +151,7 @@
         //console.log(evt.from) //melyik oszlopból származik a kártya
         //console.log(evt.related) //mozgatott kártya HTML része
         //console.log(evt.relatedContext.list)
-        console.log(evt.draggedContext)
+    
       },
       log(evt) {
         //console.log(evt)
@@ -183,6 +183,7 @@
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
+                <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
               </div>
             </div>
           </template>
@@ -204,6 +205,7 @@
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
+                <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
               </div>
             </div>
           </template>
@@ -224,6 +226,7 @@
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
+                <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
               </div>
             </div>
           </template>
@@ -244,6 +247,7 @@
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
+                <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
               </div>
             </div>
           </template>
@@ -293,5 +297,9 @@
     opacity: 0.5;
     background: #F7FAFC;
     border: 1px solid #4299e1;
+  }
+  .router-font-awesome{
+    text-decoration: none;
+    color: #000;
   }
 </style>
