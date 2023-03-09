@@ -17,11 +17,11 @@
 
   //multiple axios and put pinia store
   let urls = [
-    'api/squad',
-    'api/swimlane',
-    'api/card/swimlane/1',
-    'api/card/swimlane/2',
-    'api/board'
+    'http://localhost:8080/api/squad',
+    'http://localhost:8080/api/swimlane',
+    'http://localhost:8080/api/card/swimlane/1',
+    'http://localhost:8080/api/card/swimlane/2',
+    'http://localhost:8080/api/board'
   ]
   const requests = urls.map(url => axios.get(url))
 

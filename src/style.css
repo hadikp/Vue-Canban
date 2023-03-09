@@ -39,11 +39,11 @@ body {
 
 @font-face {
   font-family: GreatVibes;
-  src: url(./fonts/GreatVibes-Regular.ttf);
+  src: url(../public/fonts/GreatVibes-Regular.ttf);
 }
 @font-face {
   font-family: Roboto;
-  src: url(/fonts/RobotoSlab-VariableFont_wght.ttf);
+  src: url(../public/fonts/RobotoSlab-VariableFont_wght.ttf);
 }
 
 body {

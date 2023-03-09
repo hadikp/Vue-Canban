@@ -1,4 +1,4 @@
-<script setup>
+<script>
   import { computed, ref, reactive } from 'vue'
   import axios from 'redaxios'
   import { useRoute } from 'vue-router'
@@ -8,36 +8,52 @@
 
 
   const route = useRoute() 
-  const idFromDragAndDrop = route.params.id; //from DragAndDrop, cardId
 
   const updateCardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
 
-  const title = ref('')
+  export default {
+    data() {
+      return {
+        form: {
+          title: '',
+          description: '',
+          priority: '',
+          positionNumber: '',
+          dueAt: '',
+        }
+      }
+    },
+    async created() {
+      try {
+        const resp = await axios.get(`http://localhost:8080/api/card/${this.$route.params.id}`)
+        this.form = resp.data
+      } catch (e) {
+        error.value = 'Valami hiba történt, próbáld meg újra'
+      }
+    }, 
+    methods: {
+      update() {
+        
+      axios.put(`http://localhost:8080/api/card/${this.$route.params.id}`, this.form ).then(resp => 
+          (console.log(resp.data)))
+         
+        .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
+  
+      }
+   }
+  }
+
+ /*  const title = ref('')
   const description = ref('')
   const priority = ref('')
   const positionNumber = ref('')
   const dueAt = ref('')
   const error = ref('')
 
-  const data = () => {title,
-    description,
-    priority,
-    positionNumber,
-    dueAt;
-    return {title, description, priority, positionNumber, dueAt}
-    }
-
   const cardData = axios.get(`http://localhost:8080/api/card/${idFromDragAndDrop}`, //card from db
-      {
-        /* title: title.value,
-        description: description.value,
-        priority: priority.value,
-        positionNumber: positionNumber.value,
-        dueAt: dueAt.value, */
-        
-      }).then(resp => {
+      { }).then(resp => {
         // console.log(resp.data)
         updateCardData.card = resp.data
       })
@@ -46,17 +62,14 @@
   
    console.warn(cardData.value) 
 
-  /* const load = computed(() => {
+  const load = computed(() => {
     return updateCardData.card.find(card => card.id == idFromDragAndDrop)
-  })     */
+  })    
 
-  /* if(swimlane1CardData.swimlane1Card.cardId == idFromDragAndDrop){
-
-  } */
+  if(swimlane1CardData.swimlane1Card.cardId == idFromDragAndDrop){}
 
   const update = () => {
     const card = reactive({title: '', description: '', priority: '', positionNumber: '', dueAt: ''});
-
     axios.put(`http://localhost:8080/api/card/${idFromDragAndDrop}`, //update card
       {
         title: title.value,
@@ -64,12 +77,11 @@
         priority: priority.value,
         positionNumber: positionNumber.value,
         dueAt: dueAt.value,
-        
       }).then(resp => 
           (console.log(resp.data)))
          
         .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
-  }
+  } */
 
 </script>
 
@@ -77,32 +89,31 @@
   <div class="content">
     <main>
       <h2>Create Card</h2>
-      <form class="" v-on:submit.prevent="update">
-        <p>{{ error }}</p>
+      <form class="" v-on:submit.prevent="update" >
+        <!-- <p>{{ error }}</p> -->
         <div class="form-row">
           <label for="title">Card title: </label>
-          <input type="text" name="title" v-model="title">
+          <input type="text" name="title" v-model="form.title">
         </div>
         <div class="form-row">
           
           <label for="description">Card description:</label>
-          <textarea name="description" placeholder="max. 150 character" v-model="description"></textarea>
+          <textarea name="description" placeholder="max. 150 character" v-model="form.description"></textarea>
         </div>
         <div class="form-row">
           <label for="priority">Card priority:</label>
-          <input  type="text" name="title" placeholder="Card priority" v-model="priority">
+          <input  type="text" name="title" placeholder="Card priority" v-model="form.priority">
         </div>
         <div class="form-row">
           <label for="positioNum">Card positioNum:</label>
-        <input id="positioNum" type="text" name="title" placeholder="Card positioNum" v-model="positionNumber">
+        <input id="positioNum" type="text" name="title" placeholder="Card positioNum" v-model="form.positionNumber">
         </div>
         <div class="form-row">
           <label for="dueAt">Card dueAt:</label>
-        <input id="dueAt" type="text" name="title" placeholder="Card dueAt" v-model="dueAt">
+        <input id="dueAt" type="text" name="title" placeholder="Card dueAt" v-model="form.dueAt">
         </div>
         <button>Update</button>
       </form>
-      <button @click="load">Load</button>
     </main>
   </div>
 </template>
