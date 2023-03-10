@@ -1,6 +1,10 @@
 <script setup>
   import { ref } from 'vue'
   import axios from 'redaxios'
+  import router from '../plugins/router'
+  import { useRoute } from 'vue-router'
+  import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
+  import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
 
   const title = ref('')
   const description = ref('')
@@ -10,7 +14,12 @@
   const colId = ref('')
   const userId = ref('')
   const swimlaneId = ref('')
+  
   const error = ref('')
+  const route = useRoute() 
+
+  const swimlane1CardData = useSwimlane1CardStore()
+  const swimlane2CardData = useSwimlane2CardStore()
 
   const create = () => {
     if(!title.value || !description.value){
@@ -27,9 +36,10 @@
         colId: colId.value,
         userId: userId.value,
         swimlaneId: swimlaneId.value
-      }).then(resp => 
-          (console.log(resp.data)))
-          // userData.user = resp.data.data.user))
+      }).then(resp => {
+          // swimlane1CardData.swimlane1Card.push(resp.data);
+          console.log(resp.data);
+          router.push({name:'board'})})
         .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
   }
 
@@ -40,7 +50,9 @@
     <main>
       <h2 class="create-title">Create Card</h2>
       <form class="" v-on:submit.prevent="create">
-        <p>{{ error }}</p>
+        <div class="error">
+          {{ error }}
+        </div>
         <div class="form-row">
           <label for="title">Card title: </label>
           <input type="text" name="title" placeholder="max. 50 character" v-model="title">
@@ -74,6 +86,7 @@
         <input id="swimlaneId" type="text" placeholder="Card swimlaneId" v-model="swimlaneId">
         </div>
         <button class="create-button">To Board</button>
+        
       
       </form>
     </main>
@@ -93,6 +106,9 @@
     justify-content: flex-end;
     padding: .5em;
     width: 30vw;
+  }
+  .error{
+    color: red;
   }
   .form-row > label{
     flex: 1;

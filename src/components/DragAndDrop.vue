@@ -1,16 +1,12 @@
 <script>
   import Draggable from 'vuedraggable'
-  import { useCardStore } from '../../stores/card'
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
   import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { ref, watch } from 'vue'
   import axios from 'redaxios'
 
-  const cardData = useCardStore()
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
-
-
 
   export default {
     props: ['swimlaneId'],
