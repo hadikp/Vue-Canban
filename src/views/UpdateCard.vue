@@ -1,17 +1,8 @@
 <script>
-  import { computed, ref, reactive } from 'vue'
   import axios from 'redaxios'
   import { useRoute } from 'vue-router'
-  import { useCardStore } from '../../stores/card'
-  import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
-  import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
-
 
   const route = useRoute() 
-
-  const updateCardData = useCardStore()
-  const swimlane1CardData = useSwimlane1CardStore()
-  const swimlane2CardData = useSwimlane2CardStore()
 
   export default {
     data() {
@@ -35,62 +26,23 @@
     }, 
     methods: {
       update() {
-        
       axios.put(`http://localhost:8080/api/card/${this.$route.params.id}`, this.form ).then(resp => 
           (console.log(resp.data)))
-         
         .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
-  
       }
    }
   }
-
- /*  const title = ref('')
-  const description = ref('')
-  const priority = ref('')
-  const positionNumber = ref('')
-  const dueAt = ref('')
-  const error = ref('')
-
-  const cardData = axios.get(`http://localhost:8080/api/card/${idFromDragAndDrop}`, //card from db
-      { }).then(resp => {
-        // console.log(resp.data)
-        updateCardData.card = resp.data
-      })
-          // userData.user = resp.data.data.user))
-        .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
-  
-   console.warn(cardData.value) 
-
-  const load = computed(() => {
-    return updateCardData.card.find(card => card.id == idFromDragAndDrop)
-  })    
-
-  if(swimlane1CardData.swimlane1Card.cardId == idFromDragAndDrop){}
-
-  const update = () => {
-    const card = reactive({title: '', description: '', priority: '', positionNumber: '', dueAt: ''});
-    axios.put(`http://localhost:8080/api/card/${idFromDragAndDrop}`, //update card
-      {
-        title: title.value,
-        description: description.value,
-        priority: priority.value,
-        positionNumber: positionNumber.value,
-        dueAt: dueAt.value,
-      }).then(resp => 
-          (console.log(resp.data)))
-         
-        .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
-  } */
 
 </script>
 
 <template>
   <div class="content">
     <main>
-      <h2>Create Card</h2>
+      <h2 class="update-title">Update Card</h2>
       <form class="" v-on:submit.prevent="update" >
-        <!-- <p>{{ error }}</p> -->
+        <div class="error">
+          {{ error }}
+        </div>
         <div class="form-row">
           <label for="title">Card title: </label>
           <input type="text" name="title" v-model="form.title">
@@ -112,15 +64,22 @@
           <label for="dueAt">Card dueAt:</label>
         <input id="dueAt" type="text" name="title" placeholder="Card dueAt" v-model="form.dueAt">
         </div>
-        <button>Update</button>
+        <button class="update-button">Update</button>
       </form>
     </main>
   </div>
 </template>
 
 <style scoped>
+  .update-title{
+    font-family: Roboto;
+    margin-bottom: 1rem;
+  }
   .content{
     margin: 2rem;
+  }
+  .error{
+    color: red;
   }
   .form-row{
     display: flex;
@@ -133,6 +92,17 @@
   }
   .form-row > input,textarea{
     flex: 2;
+  }
+  .update-button{
+    background-color: var(--green);
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  .update-button:hover{
+    background-color: #fff;
+    color: var(--green);
+    font-family: Roboto;
   }
   
 </style>

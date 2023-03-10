@@ -38,7 +38,7 @@
 <template>
   <div class="content">
     <main>
-      <h2>Create Card</h2>
+      <h2 class="create-title">Create Card</h2>
       <form class="" v-on:submit.prevent="create">
         <p>{{ error }}</p>
         <div class="form-row">
@@ -73,7 +73,7 @@
           <label for="swimlaneId">Card swimlaneId:</label>
         <input id="swimlaneId" type="text" placeholder="Card swimlaneId" v-model="swimlaneId">
         </div>
-        <button>To Board</button>
+        <button class="create-button">To Board</button>
       
       </form>
     </main>
@@ -81,6 +81,10 @@
 </template>
 
 <style scoped>
+  .create-title{
+    font-family: Roboto;
+    margin-bottom: 1rem;
+  }
   .content{
     margin: 2rem;
   }
@@ -95,6 +99,18 @@
   }
   .form-row > input,textarea{
     flex: 2;
+  }
+  .create-button{
+    background-color: var(--green);
+    color: #fff;
+    font-family: Roboto;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  .create-button:hover{
+    background-color: #fff;
+    color: var(--green);
+    font-family: Roboto;
   }
   
 </style>
