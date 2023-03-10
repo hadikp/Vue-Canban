@@ -151,15 +151,18 @@
       },
       log(evt) {
         //console.log(evt)
+      },
+      delCard(cardId){
+        swimlane1CardData.swimlane1Card = swimlane1CardData.swimlane1Card.filter(c => c.id !== cardId)
+        axios.delete(`http://localhost:8080/api/card/${cardId}`)
+        .then(resp => {
+                console.log('delete card ' + cardId)
+              })
+              .catch(err => (error.value = 'Hibás axios hívás, próbáld meg újra'))
       }
     } 
   }
     
-
-
-/* update(event, element) {
-        // console.log(element)
-        console.log(this.$refs.change.value) */
 
 </script>
 
@@ -180,6 +183,7 @@
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
                 <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
+                <button  @click="delCard(element.cardId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
               </div>
             </div>
           </template>
@@ -297,5 +301,9 @@
   .router-font-awesome{
     text-decoration: none;
     color: #000;
+    margin-right: 0.5rem;
+  }
+  .card-font-awesome{
+    
   }
 </style>

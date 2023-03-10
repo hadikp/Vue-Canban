@@ -14,9 +14,8 @@
   const colId = ref('')
   const userId = ref('')
   const swimlaneId = ref('')
-  
+
   const error = ref('')
-  const route = useRoute() 
 
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
@@ -39,7 +38,8 @@
       }).then(resp => {
           // swimlane1CardData.swimlane1Card.push(resp.data);
           console.log(resp.data);
-          router.push({name:'board'})})
+          })
+          router.push({name:'board'})
         .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
   }
 
