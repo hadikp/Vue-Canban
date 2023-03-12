@@ -25,6 +25,7 @@
     },
     computed: {
       list1_length() {
+        
         return this.list1.length
       },
       list2_length() {
@@ -35,7 +36,8 @@
       },
       list4_length() {
         return this.list4.length
-      }
+      },
+     
     },
     watch: {
       list1_length(newVal, oldVal){
@@ -66,36 +68,48 @@
            const cardId = this.list1[i].cardId  //a list1-ben lévő card-ok id-je
            const columnId = 1
           if(this.list1[i].colId != columnId){
-            this.axiosFgPost(columnId, cardId)
+            this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
+          this.list1.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+            return a.positionNumber - b.positionNumber
+          })
         },
       list2Monitor() {
         for(let i = 0; i < this.list2.length; i++) {
            const cardId = this.list2[i].cardId  //a list2-ben lévő card-ok id-je
            const columnId = 2
           if(this.list2[i].colId != columnId){
-            this.axiosFgPost(columnId, cardId)
+            this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
+          this.list2.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+            return a.positionNumber - b.positionNumber
+          })
         },
         list3Monitor() {
         for(let i = 0; i < this.list3.length; i++) {
            const cardId = this.list3[i].cardId  //a list3-ben lévő card-ok id-je
            const columnId = 3
           if(this.list3[i].colId != columnId){
-            this.axiosFgPost(columnId, cardId)
+            this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
+          this.list3.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+            return a.positionNumber - b.positionNumber
+          })
         },
         list4Monitor() {
         for(let i = 0; i < this.list4.length; i++) {
            const cardId = this.list4[i].cardId  //a list4-ben lévő card-ok id-je
            const columnId = 4
           if(this.list4[i].colId != columnId){
-            this.axiosFgPost(columnId, cardId)
+            this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
+          this.list4.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+            return a.positionNumber - b.positionNumber
+          })
         },
       axiosFgPost(columnId, cardId) {
         axios.post(`http://localhost:8080/api/col/${columnId}/card/${cardId}`,
@@ -118,17 +132,21 @@
       pushCards(swimlaneCardsArr){
         for(let i = 0; i < swimlaneCardsArr.length; i++) {
             if(swimlaneCardsArr[i].colId == 1){
-              this.list1.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list1.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
+                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
+                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 2){
-              this.list2.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list2.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
+                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
+                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 3){
-              this.list3.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list3.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
+                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
+                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else {
-              this.list4.push({colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
-              openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list4.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
+                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
+                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             }
           }
       },
@@ -142,23 +160,32 @@
       },
       checkMove(evt) {
         // console.log(evt.relatedContext.list)
-        // console.log(evt.draggedContext) //adott oszlopban hányadik sor
+        //console.log(evt.draggedContext) //adott oszlopban hányadik sor
         //console.log(evt.draggedRect) //koordináták
         //console.log(evt.from) //melyik oszlopból származik a kártya
         //console.log(evt.related) //mozgatott kártya HTML része
         //console.log(evt.relatedContext.list)
-    
+        const positionNum = evt.draggedContext.futureIndex
+        const cardId = evt.draggedContext.element.cardId
+        axios.put(`http://localhost:8080/api/card/${cardId}/position`, //átírjuk a positionNumber-t az adatbázisban
+              {  positionNumber:  positionNum
+              }).then(resp => {
+                console.log(resp.data)
+               // userData.user = resp.data
+              })
+              .catch(err => (error.value = 'Hibás axios hívás (pisitionNumber), próbáld meg újra'))
       },
       log(evt) {
         //console.log(evt)
       },
-      delCard(cardId){
-        swimlane1CardData.swimlane1Card = swimlane1CardData.swimlane1Card.filter(c => c.id !== cardId)
+      delCard(cardId, colId){
+        swimlane1CardData.swimlane1Card = swimlane1CardData.swimlane1Card.filter(c => c.id !== cardId) //kiszedi a piniából a törölt kártyát
+
         axios.delete(`http://localhost:8080/api/card/${cardId}`)
         .then(resp => {
                 console.log('delete card ' + cardId)
               })
-              .catch(err => (error.value = 'Hibás axios hívás, próbáld meg újra'))
+              .catch(err => (error.value = 'Hibás axios delete hívás, próbáld meg újra'))
       }
     } 
   }
@@ -183,7 +210,7 @@
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
                 <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
-                <button  @click="delCard(element.cardId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
+                <button  @click="delCard(element.cardId, element.colId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
               </div>
             </div>
           </template>
@@ -197,7 +224,7 @@
         <h4>Ready to work</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" @change="log" :move="checkMove">
+        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
               <div v-if="element.user != 'start'" class="list-group-card">
@@ -218,7 +245,7 @@
         <h4>Active</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
+        <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
@@ -239,7 +266,7 @@
         <h4>Closed</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" @change="update($event, 15)">
+        <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
               <div class="list-group-card">
@@ -302,6 +329,9 @@
     text-decoration: none;
     color: #000;
     margin-right: 0.5rem;
+  }
+  .router-font-awesome:hover{
+    color: var(--grey);
   }
   .card-font-awesome{
     
