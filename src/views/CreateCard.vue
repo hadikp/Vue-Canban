@@ -2,7 +2,6 @@
   import { ref } from 'vue'
   import axios from 'redaxios'
   import router from '../plugins/router'
-  import { useRoute } from 'vue-router'
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
   import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
 

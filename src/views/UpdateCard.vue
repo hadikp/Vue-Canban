@@ -1,8 +1,6 @@
 <script>
   import axios from 'redaxios'
-  import { useRoute } from 'vue-router'
-
-  const route = useRoute() 
+  import router from '../plugins/router'
 
   export default {
     data() {
@@ -16,7 +14,7 @@
         }
       }
     },
-    async created() {
+    async created() { //a card form-ba töltése az adatbázisból
       try {
         const resp = await axios.get(`http://localhost:8080/api/card/${this.$route.params.id}`)
         this.form = resp.data
@@ -26,9 +24,12 @@
     }, 
     methods: {
       update() {
-      axios.put(`http://localhost:8080/api/card/${this.$route.params.id}`, this.form ).then(resp => 
-          (console.log(resp.data)))
-        .catch(err => (error.value = 'Valami hiba történt, próbáld meg újra'))
+      axios.put(`http://localhost:8080/api/card/${this.$route.params.id}`, //card update
+       this.form ).then(resp => {
+        console.log(resp.data)
+        router.push({name:'board'})
+      })
+        .catch(err => (error.value = 'Valami hiba történt az Update-nél, próbáld meg újra'))
       }
    }
   }

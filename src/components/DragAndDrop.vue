@@ -4,6 +4,7 @@
   import { useSwimlane2CardStore } from '../../stores/swimlane2Card'
   import { ref, watch } from 'vue'
   import axios from 'redaxios'
+  import router from '../plugins/router'
 
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
@@ -180,7 +181,8 @@
       },
       delCard(cardId, colId){
         swimlane1CardData.swimlane1Card = swimlane1CardData.swimlane1Card.filter(c => c.id !== cardId) //kiszedi a piniából a törölt kártyát
-
+        // this.$router.go(0) //újratölti az alkalmazást
+        //router.push({name:'icons'})
         axios.delete(`http://localhost:8080/api/card/${cardId}`)
         .then(resp => {
                 console.log('delete card ' + cardId)
@@ -233,6 +235,7 @@
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
                 <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
+                <button  @click="delCard(element.cardId, element.colId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
               </div>
             </div>
           </template>
@@ -254,6 +257,7 @@
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
                 <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
+                <button  @click="delCard(element.cardId, element.colId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
               </div>
             </div>
           </template>
@@ -275,6 +279,7 @@
                 <p>{{ element.title }}</p>
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
                 <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
+                <button  @click="delCard(element.cardId, element.colId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
               </div>
             </div>
           </template>
