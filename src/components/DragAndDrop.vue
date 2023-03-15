@@ -43,27 +43,39 @@
     watch: {
       list1_length(newVal, oldVal){
         if(newVal > oldVal) {
-          this.list1Monitor()
+          this.list1ChangeColId()
+        }
+        if(newVal < oldVal) {
+          this.list1ChangePosition()
         }
       },
       list2_length(newVal, oldVal){
         if(newVal > oldVal) {
-          this.list2Monitor()
+          this.list2ChangeColId()
+        }
+        if(newVal < oldVal) {
+          this.list2ChangePosition()
         }
       },
       list3_length(newVal, oldVal){
         if(newVal > oldVal) {
-          this.list3Monitor()
+          this.list3ChangeColId()
+        }
+        if(newVal < oldVal) {
+          this.list3ChangePosition()
         }
       },
       list4_length(newVal, oldVal){
         if(newVal > oldVal) {
-          this.list4Monitor()
+          this.list4ChangeColId()
+        }
+        if(newVal < oldVal) {
+          this.list4ChangePosition()
         }
       },
     },
     methods: {
-      list1Monitor() {
+      list1ChangeColId() { //watch függvény figyeli
           console.log("List1 changed, new length: " + this.list1.length)
         for(let i = 0; i < this.list1.length; i++) {
            const cardId = this.list1[i].cardId  //a list1-ben lévő card-ok id-je
@@ -76,7 +88,7 @@
             return a.positionNumber - b.positionNumber
           })
         },
-      list2Monitor() {
+      list2ChangeColId() { //watch függvény figyeli
         for(let i = 0; i < this.list2.length; i++) {
            const cardId = this.list2[i].cardId  //a list2-ben lévő card-ok id-je
            const columnId = 2
@@ -88,7 +100,7 @@
             return a.positionNumber - b.positionNumber
           })
         },
-        list3Monitor() {
+      list3ChangeColId() { //watch függvény figyeli
         for(let i = 0; i < this.list3.length; i++) {
            const cardId = this.list3[i].cardId  //a list3-ben lévő card-ok id-je
            const columnId = 3
@@ -100,7 +112,7 @@
             return a.positionNumber - b.positionNumber
           })
         },
-        list4Monitor() {
+      list4ChangeColId() { //watch függvény figyeli
         for(let i = 0; i < this.list4.length; i++) {
            const cardId = this.list4[i].cardId  //a list4-ben lévő card-ok id-je
            const columnId = 4
@@ -112,7 +124,7 @@
             return a.positionNumber - b.positionNumber
           })
         },
-      axiosFgPost(columnId, cardId) {
+      axiosFgPost(columnId, cardId) { //átírjuk a colId-t az adatbázisban
         axios.post(`http://localhost:8080/api/col/${columnId}/card/${cardId}`,
               { //  email:  email.value,
               }).then(resp => {
@@ -172,6 +184,9 @@
         //console.log(evt.relatedContext.list)
         const positionNum = evt.draggedContext.futureIndex
         const cardId = evt.draggedContext.element.cardId
+        this.writePositionNumInDB(cardId, positionNum) //átírjuk a positionNumber-t az adatbázisban
+      },
+      writePositionNumInDB(cardId, positionNum) {
         axios.put(`http://localhost:8080/api/card/${cardId}/position`, //átírjuk a positionNumber-t az adatbázisban
               {  positionNumber:  positionNum
               }).then(resp => {
@@ -180,11 +195,37 @@
               })
               .catch(err => (error.value = 'Hibás axios hívás (pisitionNumber), próbáld meg újra'))
       },
+      list1ChangePosition() { //watch függvény figyeli
+        console.log('Csökkent a kártyák száma itt')
+        for(let i = 0; i < this.list1.length; i++){
+          console.log(this.list1[i].title)
+          const cardId = this.list1[i].cardId
+          this.writePositionNumInDB(cardId, i)
+        }
+      },
+      list2ChangePosition() { //watch függvény figyeli
+        for(let i = 0; i < this.list2.length; i++){
+          const cardId = this.list2[i].cardId
+          this.writePositionNumInDB(cardId, i)
+        }
+      },
+      list3ChangePosition() { //watch függvény figyeli
+        for(let i = 0; i < this.list3.length; i++){
+          const cardId = this.list3[i].cardId
+          this.writePositionNumInDB(cardId, i)
+        }
+      },
+      list4ChangePosition() { //watch függvény figyeli
+        for(let i = 0; i < this.list4.length; i++){
+          const cardId = this.list4[i].cardId
+          this.writePositionNumInDB(cardId, i)
+        }
+      },
       log(evt) {
         //console.log(evt)
       },
       forceRerender(){
-        this.DragAndDropKey += 1
+        this.DragAndDropKey += 1 //most nem használom, jó példa az oldal frissítésére
         console.log('forceRerender')
       },
       delCard(cardId, colId){
