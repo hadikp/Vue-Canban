@@ -28,7 +28,6 @@
     },
     computed: {
       list1_length() {
-        
         return this.list1.length
       },
       list2_length() {
@@ -39,8 +38,7 @@
       },
       list4_length() {
         return this.list4.length
-      },
-     
+      }
     },
     watch: {
       list1_length(newVal, oldVal){
@@ -74,7 +72,7 @@
             this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
-          this.list1.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+          this.list1.sort((a, b) => { //sorbarendezi a board megfelelő oszlopát positionNumber szerint
             return a.positionNumber - b.positionNumber
           })
         },
@@ -86,7 +84,7 @@
             this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
-          this.list2.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+          this.list2.sort((a, b) => { //sorbarendezi a board megfelelő oszlopát positionNumber szerint
             return a.positionNumber - b.positionNumber
           })
         },
@@ -98,7 +96,7 @@
             this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
-          this.list3.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+          this.list3.sort((a, b) => { //sorbarendezi a board megfelelő oszlopát positionNumber szerint
             return a.positionNumber - b.positionNumber
           })
         },
@@ -110,7 +108,7 @@
             this.axiosFgPost(columnId, cardId) //átírjuk a colId-t az adatbázisban
             }
           }
-          this.list4.sort((a, b) => { //sorbarendezi a board első oszlopát positionNumber szerint
+          this.list4.sort((a, b) => { //sorbarendezi a board megfelelő oszlopát positionNumber szerint
             return a.positionNumber - b.positionNumber
           })
         },
@@ -190,11 +188,31 @@
         console.log('forceRerender')
       },
       delCard(cardId, colId){
+        let swimlane1CardArr = swimlane1CardData.swimlane1Card
         swimlane1CardData.swimlane1Card = swimlane1CardData.swimlane1Card.filter(c => c.id !== cardId) //kiszedi a piniából a törölt kártyát
         //this.$router.go(0) //újratölti az alkalmazást
         // axios.delete(`http://localhost:8080/api/card/${cardId}`)
-       
-        axios.put(`http://localhost:8080/api/card/status/${cardId}`)
+       for(let i = 0; i < swimlane1CardArr.length; i++){
+        if(cardId == swimlane1CardArr[i].id){
+          let listWork = `list${colId}`
+          const spliceFirstNum = swimlane1CardArr[i].positionNumber
+          switch(listWork){
+            case 'list1':
+              this.list1.splice(spliceFirstNum, 1)
+              break
+            case 'list2':
+              this.list2.splice(spliceFirstNum, 1)
+              break
+            case 'list3':
+              this.list3.splice(spliceFirstNum, 1)
+              break
+            case 'list4':
+              this.list4.splice(spliceFirstNum, 1)
+              break    
+          }
+        }
+       }
+      axios.put(`http://localhost:8080/api/card/status/${cardId}`)
         .then(resp => {
                 console.log('delete card ' + cardId)
                 
