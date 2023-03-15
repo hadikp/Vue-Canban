@@ -90,7 +90,7 @@
             <p> {{ swimlaneData.swimlane[0].name }}</p>
           </div>
           <div class="drag-and-drop">
-             <DragAndDrop :swimlaneId = swimlaneData.swimlane[0].id /> <!--v-bind:swimlaneId = swimlaneData.swimlane[0].id -->
+             <DragAndDrop :swimlaneId = swimlaneData.swimlane[0].id :key="DragAndDropKey" /> <!--v-bind:swimlaneId = swimlaneData.swimlane[0].id -->
           </div>
       </div>
 
@@ -100,7 +100,7 @@
             <p>{{ swimlaneData.swimlane[1].name }}</p>
           </div>
           <div class="drag-and-drop">
-            <DragAndDrop :swimlaneId = swimlaneData.swimlane[1].id /> <!--v-bind:swimlaneId = swimlaneData.swimlane[1].id -->
+            <DragAndDrop :swimlaneId = swimlaneData.swimlane[1].id :key="DragAndDropKey"/> <!--v-bind:swimlaneId = swimlaneData.swimlane[1].id -->
           </div>
         </div>
           

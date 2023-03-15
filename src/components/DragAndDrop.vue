@@ -6,6 +6,7 @@
   import axios from 'redaxios'
   import router from '../plugins/router'
 
+  
   const swimlane1CardData = useSwimlane1CardStore()
   const swimlane2CardData = useSwimlane2CardStore()
 
@@ -16,6 +17,7 @@
   },
   data() {
       return {
+        DragAndDropKey: 0,
         enabled: true,
         list1: [],
         list2: [],
@@ -133,21 +135,25 @@
       pushCards(swimlaneCardsArr){
         for(let i = 0; i < swimlaneCardsArr.length; i++) {
             if(swimlaneCardsArr[i].colId == 1){
-              this.list1.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
-                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
-                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list1.push({status: swimlaneCardsArr[i].status, positionNumber: swimlaneCardsArr[i].positionNumber,
+                 colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title,
+                 desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+                 openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 2){
-              this.list2.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
-                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
-                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list2.push({status: swimlaneCardsArr[i].status, positionNumber: swimlaneCardsArr[i].positionNumber,
+                 colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title,
+                 desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+                 openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else if(swimlaneCardsArr[i].colId == 3){
-              this.list3.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
-                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
-                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list3.push({status: swimlaneCardsArr[i].status, positionNumber: swimlaneCardsArr[i].positionNumber,
+                 colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title,
+                 desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+                 openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             } else {
-              this.list4.push({positionNumber: swimlaneCardsArr[i].positionNumber, colId: swimlaneCardsArr[i].colId,
-                 cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title, desc: swimlaneCardsArr[i].description,
-                 openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek, openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
+              this.list4.push({status: swimlaneCardsArr[i].status, positionNumber: swimlaneCardsArr[i].positionNumber,
+                 colId: swimlaneCardsArr[i].colId, cardId: swimlaneCardsArr[i].id, title: swimlaneCardsArr[i].title,
+                 desc: swimlaneCardsArr[i].description, openWeek: swimlaneCardsArr[i].cardExistTime.existInWeek,
+                 openDay: swimlaneCardsArr[i].cardExistTime.remainDays})
             }
           }
       },
@@ -179,13 +185,20 @@
       log(evt) {
         //console.log(evt)
       },
+      forceRerender(){
+        this.DragAndDropKey += 1
+        console.log('forceRerender')
+      },
       delCard(cardId, colId){
         swimlane1CardData.swimlane1Card = swimlane1CardData.swimlane1Card.filter(c => c.id !== cardId) //kiszedi a piniából a törölt kártyát
-        // this.$router.go(0) //újratölti az alkalmazást
-        //router.push({name:'icons'})
-        axios.delete(`http://localhost:8080/api/card/${cardId}`)
+        //this.$router.go(0) //újratölti az alkalmazást
+        // axios.delete(`http://localhost:8080/api/card/${cardId}`)
+       
+        axios.put(`http://localhost:8080/api/card/status/${cardId}`)
         .then(resp => {
                 console.log('delete card ' + cardId)
+                
+                // this.forceRerender()
               })
               .catch(err => (error.value = 'Hibás axios delete hívás, próbáld meg újra'))
       }
@@ -203,10 +216,10 @@
         <h4>Backlog</h4>
       </header>
       <main class="column-main"> 
-        <draggable class="dragArea list-group" :list="list1" ghost-class="ghost-card" group="list" item-key="user" @change="log" :move="checkMove">
+        <draggable class="dragArea list-group" :list="list1" ghost-class="ghost-card" group="list" item-key="DragAndDropKey" @change="log" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div   class="list-group-card">
+              <div v-if="element.status != 'DELETED'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
@@ -226,10 +239,10 @@
         <h4>Ready to work</h4>
       </header>
       <main class="column-main">
-        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="user" :move="checkMove">
+        <draggable class="dragArea list-group" :list="list2" ghost-class="ghost-card" group="list" item-key="DragAndDropKey"  :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div v-if="element.user != 'start'" class="list-group-card">
+              <div v-if="element.status != 'DELETED'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
@@ -251,7 +264,7 @@
         <draggable class="dragArea list-group" :list="list3" ghost-class="ghost-card" group="list" item-key="user" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div class="list-group-card">
+              <div v-if="element.status != 'DELETED'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>
@@ -273,7 +286,7 @@
         <draggable class="dragArea list-group" :list="list4" ghost-class="ghost-card" group="list" item-key="user" :move="checkMove">
           <template #item="{ element }">
             <div class="list-group-item">
-              <div class="list-group-card">
+              <div v-if="element.status != 'DELETED'" class="list-group-card">
                 <font-awesome-icon  icon="address-book" />
                 <p>{{ element.user }}</p>
                 <p>{{ element.title }}</p>

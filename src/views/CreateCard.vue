@@ -8,6 +8,7 @@
   const title = ref('')
   const description = ref('')
   const priority = ref('')
+  const status = ref('')
   const positionNumber = ref('')
   const dueAt = ref('')
   const colId = ref('')
@@ -29,6 +30,7 @@
         title: title.value,
         description: description.value,
         priority: priority.value,
+        status: status.value,
         positionNumber: positionNumber.value,
         dueAt: dueAt.value,
         colId: colId.value,
@@ -62,27 +64,31 @@
         </div>
         <div class="form-row">
           <label for="priority">Card priority:</label>
-          <input  type="text" name="title" placeholder="Card priority" v-model="priority">
+          <input  type="text" name="priority" placeholder="Card priority" v-model="priority">
+        </div>
+        <div class="form-row">
+          <label for="status">Card status:</label>
+          <input  type="text" name="status" placeholder="Card priority" v-model="status">
         </div>
         <div class="form-row">
           <label for="positioNum">Card positioNum:</label>
-        <input id="positioNum" type="text" name="title" placeholder="Card positioNum" v-model="positionNumber">
+        <input type="text" name="positioNum" placeholder="Card positioNum" v-model="positionNumber">
         </div>
         <div class="form-row">
           <label for="dueAt">Card dueAt:</label>
-        <input id="dueAt" type="text" name="title" placeholder="Card dueAt" v-model="dueAt">
+        <input type="text" name="dueAt" placeholder="Card dueAt" v-model="dueAt">
         </div>
         <div class="form-row">
           <label for="colId">Card colId:</label>
-        <input id="colId" type="text" name="title" placeholder="Card colId" v-model="colId">
+        <input type="text" name="colId" placeholder="Card colId" v-model="colId">
         </div>
         <div class="form-row">
           <label for="userId">Card userId:</label>
-        <input id="userId" type="text" name="title" placeholder="Card userId" v-model="userId">
+        <input type="text" name="userId" placeholder="Card userId" v-model="userId">
         </div>
         <div class="form-row">
           <label for="swimlaneId">Card swimlaneId:</label>
-        <input id="swimlaneId" type="text" placeholder="Card swimlaneId" v-model="swimlaneId">
+        <input type="text" name="swimlaneId" placeholder="Card swimlaneId" v-model="swimlaneId">
         </div>
         <button class="create-button">To Board</button>
         
