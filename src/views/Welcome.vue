@@ -1,6 +1,7 @@
 <script setup>
   import axios from 'redaxios'
   import { ref } from 'vue'
+  import { storeToRefs } from 'pinia'
   import { useSquadStore } from '../../stores/squad'
   import { useSwimlaneStore } from '../../stores/swimlane'
   import { useSwimlane1CardStore } from '../../stores/swimlane1Card'
@@ -12,6 +13,7 @@
   const squadData = useSquadStore()
   const swimlaneData = useSwimlaneStore()
   const swimlane1CardData = useSwimlane1CardStore()
+  const { activeCard } = storeToRefs(useSwimlane1CardStore()) 
   const swimlane2CardData = useSwimlane2CardStore()
   const boardData = useBoardStore()
 
@@ -29,12 +31,14 @@
     const squadArr = squadDatas.data
     const swimlaneArr = swimlaneDatas.data
     const swimlane1CardArr = swimlane1Card.data
+    // const active1CardArr = active1Cards.data
     const swimlane2CardArr = swimlane2Card.data
     const boardArr = boardDatas.data
     
     squadData.squad = squadArr
     swimlaneData.swimlane = swimlaneArr
     swimlane1CardData.swimlane1Card = swimlane1CardArr
+    // activeCard = active1CardArr
     swimlane2CardData.swimlane2Card = swimlane2CardArr
     boardData.board = boardArr
   }))

@@ -5,6 +5,7 @@
   import { ref, watch } from 'vue'
   import axios from 'redaxios'
   import router from '../plugins/router'
+  import CardModal from './CardModal.vue'
 
   
   const swimlane1CardData = useSwimlane1CardStore()
@@ -13,11 +14,13 @@
   export default {
     props: ['swimlaneId'],
   components: {
-    Draggable
+    Draggable,
+    CardModal
   },
   data() {
       return {
         DragAndDropKey: 0,
+        isModalOpen: false,
         enabled: true,
         list1: [],
         list2: [],
@@ -285,6 +288,8 @@
                 <p>create: {{ element.openWeek }} w {{ element.openDay }} d</p>
                 <router-link :to="{name: 'update-card', params: {id: element.cardId}}"><font-awesome-icon class="router-font-awesome" icon="edit" /></router-link>
                 <button  @click="delCard(element.cardId, element.colId)"><font-awesome-icon class="card-font-awesome" icon="trash-alt" /></button>
+                <button  @click.prevent="isModalOpen = true"><font-awesome-icon class="card-font-awesome" icon="folder-open" /></button>
+                <CardModal :isModalOpen="isModalOpen" @close="isModalOpen = false" />
               </div>
             </div>
           </template>

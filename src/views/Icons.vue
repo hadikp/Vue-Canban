@@ -46,6 +46,7 @@
     <font-awesome-icon icon="chevron-right" />
     <font-awesome-icon class="address" icon="address-book" />
     <font-awesome-icon  icon="address-card" />
+    <font-awesome-icon  icon="folder-open" />
     
 
 </template>
